@@ -3,6 +3,23 @@
 
 #include <WPILib.h>
 
+#include <Behaviors/BehaviorController.h>
+
+#include <Hardware/Motors/CANTalonConfiguration.h>
+#include <Hardware/Drive/CANTalonPositionServo.h>
+#include <Hardware/Drive/CANTalonQuadDriveBase.h>
+#include <Hardware/Drive/LinearSlide.h>
+
+#include <Hardware/Drive/MecanumDriveTrain.h>
+#include <Hardware/Drive/Filters/MecanumVelocityProfile.h>
+
+#include <Sensing/DIO/DIOSwitchLimit.h>
+
+#include <DSInput/JoystickXYInput.h>
+
+#include "RobotBehaviors/JoystickMecanumDriveBehavior.h"
+#include "RobotBehaviors/WinchHomingBehavior.h"
+
 class Robot : public IterativeRobot
 {
 public:
@@ -10,8 +27,47 @@ public:
 	Robot ();
 	~Robot ();
 	
+	void TeleopInit ();
+	void TestInit ();
+	void AutonomousInit ();
+	void DisabledInit ();
+	
+	void TeleopPeriodic ();
+	void TestPeriodic ();
+	void AutonomousPeriodic ();
+	void DisabledPeriodic ();
+	
 private:
 	
+	// Drive
+	CANTalonConfiguration WheelConfig;
+	CANTalonQuadDriveBase DriveBase;
+	
+	MecanumVelocityProfile VProfile;
+	
+	MecanumDriveTrain Drive;
+	
+	// Winch
+	CANTalonPositionServo WinchServo;
+	
+	DigitalInput WinchLimitHigh;
+	DigitalInput WinchLimitLow;
+	DIOSwitchLimit WinchLimits;
+	
+	LinearSlide Winch;
+	
+	// Input
+	Joystick StrafeStick;
+	Joystick RotateStick;
+	
+	JoystickXYInput StrafeInput;
+	JoystickXYInput RotateInput;
+	
+	// Behaviors
+	BehaviorController Behaviors;
+	
+	JoystickMecanumDriveBehavior DriveBehavior;
+	WinchHomingBehavior HomingBehavior;
 	
 };
 
