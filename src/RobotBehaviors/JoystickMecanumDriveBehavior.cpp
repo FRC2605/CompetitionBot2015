@@ -1,4 +1,4 @@
-#include <JoystickMecanumDriveBehavior.h>
+#include "JoystickMecanumDriveBehavior.h"
 
 JoystickMecanumDriveBehavior :: JoystickMecanumDriveBehavior ( MecanumDriveTrain * DriveTrain, IXYInput * StrafeInput, IXInput * RotationInput ):
 	Drive ( DriveTrain ),
