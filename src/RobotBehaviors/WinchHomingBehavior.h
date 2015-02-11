@@ -1,9 +1,9 @@
 #ifndef SHS2605_WINCHHOMINGBEHAVIOR_H
 #define SHS2605_WINCHHOMINGBEHAVIOR_H
 
-#include <Behaviors/IBehavior.h>
-
 #include <Hardware/Drive/LinearSlide.h>
+#include <Behaviors/IBehavior.h>
+#include <Behaviors/BehaviorController.h>
 
 #define WINCHHOMINGBEHAVIOR_BID "winch_homing"
 
@@ -11,10 +11,10 @@ class WinchHomingBehavior : public IBehavior
 {
 public:
 	
-	WinchHomingBehavior ( LinearSlide * Winch );
+	WinchHomingBehavior ( LinearSlide * Winch, const char * WinchControllBehaviorID, bool StartWinchControl );
 	~WinchHomingBehavior ();
 	
-	void Init ();
+	void Init ( BehaviorController * Controller, const char * AppliedID );
 	void Destroy ();
 	
 	void Start ();
@@ -22,11 +22,23 @@ public:
 	
 	void Update ();
 	
+	void ResetHomed ();
+	void SetStartWinchControl ( bool DoStart );
+	
 	static const char * GetDefaultBehaviorID ();
 	
 private:
 	
 	LinearSlide * Winch;
+	
+	bool Homed;
+	
+	BehaviorController * Controller;
+	const char * AppliedID;
+	
+	const char * WinchControllID;
+	
+	bool StartWinchControl;
 	
 };
 

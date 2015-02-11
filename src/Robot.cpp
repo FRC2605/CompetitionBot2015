@@ -14,9 +14,12 @@ Robot :: Robot ():
 	RotateStick ( 1 ),
 	StrafeInput ( & StrafeStick ),
 	RotateInput ( & RotateStick ),
+	WinchUpButton ( & RotateStick, 3 ),
+	WinchDownButton ( & RotateStick, 2 ),
 	Behaviors (),
 	DriveBehavior ( & Drive, & StrafeInput, & RotateInput ),
-	HomingBehavior ( & Winch )
+	HomingBehavior ( & Winch, WinchControllBehavior :: GetDefaultBehaviorID (), false ),
+	WinchBehavior ( & Winch, & WinchUpButton, & WinchDownButton, 10000.0 )
 {
 	
 	StrafeInput.SetDeadband ( 0.09 );
@@ -40,6 +43,7 @@ Robot :: Robot ():
 	
 	Behaviors.AddBehavior ( & DriveBehavior, JoystickMecanumDriveBehavior :: GetDefaultBehaviorID () );
 	Behaviors.AddBehavior ( & HomingBehavior, WinchHomingBehavior :: GetDefaultBehaviorID () );
+	Behaviors.AddBehavior ( & WinchBehavior, WinchControllBehavior :: GetDefaultBehaviorID () );
 	
 };
 
@@ -51,6 +55,7 @@ void Robot :: TeleopInit ()
 {
 	
 	Behaviors.StartBehavior ( JoystickMecanumDriveBehavior :: GetDefaultBehaviorID () );
+	Behaviors.StartBehavior ( WinchHomingBehavior :: GetDefaultBehaviorID () );
 	
 };
 
@@ -73,6 +78,7 @@ void Robot :: DisabledInit ()
 	
 	Behaviors.StopBehavior ( JoystickMecanumDriveBehavior :: GetDefaultBehaviorID () );
 	Behaviors.StopBehavior ( WinchHomingBehavior :: GetDefaultBehaviorID () );
+	Behaviors.StopBehavior ( WinchControllBehavior :: GetDefaultBehaviorID () );
 	
 };
 

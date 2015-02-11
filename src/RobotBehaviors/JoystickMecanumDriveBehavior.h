@@ -1,12 +1,11 @@
 #ifndef SHS2605_MECANUMDRIVEBEHAVIOR_H
 #define SHS2605_MECANUMDRIVEBEHAVIOR_H
 
-#include <Behaviors/IBehavior.h>
-
 #include <Hardware/Drive/MecanumDriveTrain.h>
 #include <Hardware/Drive/IQuadRectangularDriveBase.h>
 
 #include <Sensing/IXYInput.h>
+#include <Behaviors/IBehavior.h>
 
 #define JOYSTICKMECANUMDRIVE_BID "joystick_mecanum_drive"
 
@@ -17,7 +16,7 @@ public:
 	JoystickMecanumDriveBehavior ( MecanumDriveTrain * DriveTrain, IXYInput * StrafeInput, IXInput * RotationInput );
 	~JoystickMecanumDriveBehavior ();
 	
-	void Init ();
+	void Init ( BehaviorController * Controller, const char * AppliedID );
 	void Destroy ();
 	
 	void Start ();

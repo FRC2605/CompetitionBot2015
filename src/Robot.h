@@ -3,8 +3,6 @@
 
 #include <WPILib.h>
 
-#include <Behaviors/BehaviorController.h>
-
 #include <Hardware/Motors/CANTalonConfiguration.h>
 #include <Hardware/Drive/CANTalonPositionServo.h>
 #include <Hardware/Drive/CANTalonQuadDriveBase.h>
@@ -16,9 +14,13 @@
 #include <Sensing/DIO/DIOSwitchLimit.h>
 
 #include <DSInput/JoystickXYInput.h>
+#include <DSInput/JoystickButtonInput.h>
+
+#include <Behaviors/BehaviorController.h>
 
 #include "RobotBehaviors/JoystickMecanumDriveBehavior.h"
 #include "RobotBehaviors/WinchHomingBehavior.h"
+#include "Robotbehaviors/WinchControllBehavior.h"
 
 class Robot : public IterativeRobot
 {
@@ -63,11 +65,15 @@ private:
 	JoystickXYInput StrafeInput;
 	JoystickXYInput RotateInput;
 	
+	JoystickButtonInput WinchUpButton;
+	JoystickButtonInput WinchDownButton;
+	
 	// Behaviors
 	BehaviorController Behaviors;
 	
 	JoystickMecanumDriveBehavior DriveBehavior;
 	WinchHomingBehavior HomingBehavior;
+	WinchControllBehavior WinchBehavior;
 	
 };
 

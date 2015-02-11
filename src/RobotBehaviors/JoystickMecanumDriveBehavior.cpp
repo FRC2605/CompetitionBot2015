@@ -11,7 +11,7 @@ JoystickMecanumDriveBehavior :: ~JoystickMecanumDriveBehavior ()
 {
 };
 
-void JoystickMecanumDriveBehavior :: Init ()
+void JoystickMecanumDriveBehavior :: Init ( BehaviorController * Controller, const char * AppliedID )
 {
 };
 
