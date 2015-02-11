@@ -2,7 +2,7 @@
 
 Robot :: Robot ():
 	WheelConfig ( CANTalon :: kSpeed, CANTalonConfiguration :: kFeedbackType_QuadratureEncoder ),
-	DriveBase ( 40, 1, 43, 15, 41, 13, 42, 14, WheelConfig, 40.0, 120.0 ),
+	DriveBase ( 42, 14, 41, 13, 43, 15, 40, 1, WheelConfig, 40.0, 120.0 ),
 	VProfile ( 2.0 ),
 	Drive ( & DriveBase ),
 	WinchServo ( 44, CANTalon :: QuadEncoder, 0 ),
