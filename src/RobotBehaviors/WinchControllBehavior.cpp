@@ -32,6 +32,7 @@ void WinchControllBehavior :: Start ()
 {
 	
 	Winch -> RunVelocity ( 0.0 );
+	
 	Winch -> Enable ();
 	
 	Targeting = false;

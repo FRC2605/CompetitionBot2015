@@ -32,7 +32,15 @@ void WinchHomingBehavior :: Start ()
 	Winch -> Enable ();
 	
 	if ( ! Homed )
-		Winch -> Home ();
+	{
+		
+		Winch -> OverrideLowLimit ( - 1000000 );
+		Winch -> OverrideHighLimit ( 1000000 );
+		
+		Winch -> HomeLow ();
+		
+		
+	}
 	
 };
 
@@ -51,7 +59,7 @@ void WinchHomingBehavior :: Update ()
 	if ( ! Homed )
 	{
 		
-		Homed = Winch -> TargetReached ( 400.0 );
+		Homed = Winch -> TargetReached ( 0.0 );
 		
 	}
 	
@@ -59,7 +67,7 @@ void WinchHomingBehavior :: Update ()
 	{
 		
 		Winch -> SetLowLimit ( 0.0 );
-		
+		Winch -> OverrideHighLimit ( 105012 );
 		Controller -> StopBehavior ( AppliedID );
 		
 		if ( StartWinchControl )

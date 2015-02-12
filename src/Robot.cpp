@@ -8,7 +8,7 @@ Robot :: Robot ():
 	WinchServo ( 44, CANTalon :: QuadEncoder, 0 ),
 	WinchLimitHigh ( 0 ),
 	WinchLimitLow ( 1 ),
-	WinchLimits ( & WinchLimitHigh, & WinchLimitLow ),
+	WinchLimits ( NULL, & WinchLimitLow ),
 	Winch ( & WinchServo, & WinchLimits, 10000.0, 0.0 ),
 	StrafeStick ( 0 ),
 	RotateStick ( 1 ),
@@ -55,9 +55,6 @@ Robot :: ~Robot ()
 void Robot :: TeleopInit ()
 {
 	
-	Winch.Enable ();
-	Drive.Enable ();
-	
 	HomingBehavior.SetStartWinchControl ( true );
 	
 	Behaviors.StartBehavior ( JoystickMecanumDriveBehavior :: GetDefaultBehaviorID () );
@@ -68,14 +65,15 @@ void Robot :: TeleopInit ()
 void Robot :: TestInit ()
 {
 	
+	HomingBehavior.SetStartWinchControl ( false );
+	HomingBehavior.ResetHomed ();
 	
+	Behaviors.StartBehavior ( WinchHomingBehavior :: GetDefaultBehaviorID () );
 	
 };
 
 void Robot :: AutonomousInit ()
 {
-	
-	Winch.Enable ();
 	
 	HomingBehavior.SetStartWinchControl ( false );
 	
@@ -90,8 +88,6 @@ void Robot :: DisabledInit ()
 	Behaviors.StopBehavior ( WinchHomingBehavior :: GetDefaultBehaviorID () );
 	Behaviors.StopBehavior ( WinchControllBehavior :: GetDefaultBehaviorID () );
 	
-	Drive.Disable ();
-	Winch.Disable ();
 	
 };
 
