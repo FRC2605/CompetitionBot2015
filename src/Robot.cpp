@@ -6,9 +6,9 @@ Robot :: Robot ():
 	VProfile ( 2.0 ),
 	Drive ( & DriveBase ),
 	WinchServo ( 44, CANTalon :: QuadEncoder, 0 ),
-	WinchLimitHigh ( 0 ),
+	WinchLimitHigh ( 2 ),
 	WinchLimitLow ( 1 ),
-	WinchLimits ( NULL, & WinchLimitLow ),
+	WinchLimits ( & WinchLimitLow, NULL ),
 	Winch ( & WinchServo, & WinchLimits, 10000.0, 0.0 ),
 	StrafeStick ( 0 ),
 	RotateStick ( 1 ),
@@ -23,11 +23,6 @@ Robot :: Robot ():
 	WinchBehavior ( & Winch, & WinchUpButton, & WinchDownButton, 20000.0 )
 {
 	
-	StrafeInput.SetDeadband ( 0.09 );
-	RotateInput.SetDeadband ( 0.09 );
-	
-	StrafeInput.SetInversion ( false, true );
-	
 	WinchServo.SetProfileSlot ( 0 );
 	WinchServo.SetPIDF ( 0.7, 0.0, 0.3, 0.0 );
 	
@@ -41,6 +36,11 @@ Robot :: Robot ():
 	
 	Drive.SetMotorScale ( 7000 );
 	Drive.AddMagDirFilter ( & VProfile );
+	
+	StrafeInput.SetDeadband ( 0.09 );
+	RotateInput.SetDeadband ( 0.09 );
+	
+	StrafeInput.SetInversion ( false, true );
 	
 	Behaviors.AddBehavior ( & DriveBehavior, JoystickMecanumDriveBehavior :: GetDefaultBehaviorID () );
 	Behaviors.AddBehavior ( & HomingBehavior, WinchHomingBehavior :: GetDefaultBehaviorID () );

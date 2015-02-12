@@ -1,5 +1,7 @@
 #include "WinchHomingBehavior.h"
 
+#include <iostream>
+
 WinchHomingBehavior :: WinchHomingBehavior ( LinearSlide * Winch, const char * WinchControllBehaviorID, bool StartWinchControl ):
 	Winch ( Winch ),
 	Homed ( false ),
@@ -34,11 +36,9 @@ void WinchHomingBehavior :: Start ()
 	if ( ! Homed )
 	{
 		
-		Winch -> OverrideLowLimit ( - 1000000 );
-		Winch -> OverrideHighLimit ( 1000000 );
-		
 		Winch -> HomeLow ();
 		
+		std :: cout << "Homing low\n";
 		
 	}
 	
@@ -66,8 +66,11 @@ void WinchHomingBehavior :: Update ()
 	if ( Homed )
 	{
 		
+		std :: cout << "Homed!\n";
+		
 		Winch -> SetLowLimit ( 0.0 );
 		Winch -> OverrideHighLimit ( 105012 );
+		
 		Controller -> StopBehavior ( AppliedID );
 		
 		if ( StartWinchControl )
