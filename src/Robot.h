@@ -68,6 +68,8 @@ private:
 	JoystickButtonInput WinchUpButton;
 	JoystickButtonInput WinchDownButton;
 	
+	JoystickButtonInput FinePositioningButton;
+	
 	// Behaviors
 	BehaviorController Behaviors;
 	

@@ -1,9 +1,10 @@
 #include "JoystickMecanumDriveBehavior.h"
 
-JoystickMecanumDriveBehavior :: JoystickMecanumDriveBehavior ( MecanumDriveTrain * DriveTrain, IXYInput * StrafeInput, IXInput * RotationInput ):
+JoystickMecanumDriveBehavior :: JoystickMecanumDriveBehavior ( MecanumDriveTrain * DriveTrain, IXYInput * StrafeInput, IXInput * RotationInput, IBooleanInput * FinePositioningButton ):
 	Drive ( DriveTrain ),
 	Strafe ( StrafeInput ),
-	Rotate ( RotationInput )
+	Rotate ( RotationInput ),
+	FinePositioningButton ( FinePositioningButton )
 {
 };
 
@@ -45,8 +46,12 @@ void JoystickMecanumDriveBehavior :: Update ()
 	
 	double R = Rotate -> GetX () / RScale;
 	
+	double FineScale = FinePositioningButton -> GetBoolean () ? 0.3 : 1.0;
+	
 	Drive -> SetTranslation ( X, Y );
 	Drive -> SetRotation ( R );
+	
+	Drive -> SetPreScale ( FineScale, FineScale );
 	
 	Drive -> PushTransform ();
 	

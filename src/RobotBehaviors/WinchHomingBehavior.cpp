@@ -58,6 +58,8 @@ void WinchHomingBehavior :: Update ()
 	if ( Homed )
 	{
 		
+		Winch -> SetLowLimit ( 0.0 );
+		
 		Controller -> StopBehavior ( AppliedID );
 		
 		if ( StartWinchControl )

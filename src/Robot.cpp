@@ -16,8 +16,9 @@ Robot :: Robot ():
 	RotateInput ( & RotateStick ),
 	WinchUpButton ( & RotateStick, 3 ),
 	WinchDownButton ( & RotateStick, 2 ),
+	FinePositioningButton ( & StrafeStick, 2 ),
 	Behaviors (),
-	DriveBehavior ( & Drive, & StrafeInput, & RotateInput ),
+	DriveBehavior ( & Drive, & StrafeInput, & RotateInput, & FinePositioningButton ),
 	HomingBehavior ( & Winch, WinchControllBehavior :: GetDefaultBehaviorID (), false ),
 	WinchBehavior ( & Winch, & WinchUpButton, & WinchDownButton, 20000.0 )
 {

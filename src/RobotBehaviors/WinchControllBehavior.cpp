@@ -45,6 +45,8 @@ void WinchControllBehavior :: Stop ()
 	
 };
 
+#include <iostream>
+
 void WinchControllBehavior :: Update ()
 {
 	
@@ -86,6 +88,8 @@ void WinchControllBehavior :: Update ()
 	}
 	
 	Winch -> Update ();
+	
+	std :: cout << "WinchPosition: " << Winch -> GetPosition () << "\n";
 	
 };
 

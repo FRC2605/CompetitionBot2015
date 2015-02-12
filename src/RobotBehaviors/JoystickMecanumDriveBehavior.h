@@ -5,6 +5,8 @@
 #include <Hardware/Drive/IQuadRectangularDriveBase.h>
 
 #include <Sensing/IXYInput.h>
+#include <Sensing/IBooleanInput.h>
+
 #include <Behaviors/IBehavior.h>
 
 #define JOYSTICKMECANUMDRIVE_BID "joystick_mecanum_drive"
@@ -13,7 +15,7 @@ class JoystickMecanumDriveBehavior : public IBehavior
 {
 public:
 	
-	JoystickMecanumDriveBehavior ( MecanumDriveTrain * DriveTrain, IXYInput * StrafeInput, IXInput * RotationInput );
+	JoystickMecanumDriveBehavior ( MecanumDriveTrain * DriveTrain, IXYInput * StrafeInput, IXInput * RotationInput, IBooleanInput * FinePositioningButton );
 	~JoystickMecanumDriveBehavior ();
 	
 	void Init ( BehaviorController * Controller, const char * AppliedID );
@@ -32,6 +34,8 @@ private:
 	
 	IXYInput * Strafe;
 	IXInput * Rotate;
+	
+	IBooleanInput * FinePositioningButton;
 	
 };
 
