@@ -48,6 +48,13 @@ void WinchHomingBehavior :: Update ()
 	
 	Winch -> Update ();
 	
+	if ( ! Homed )
+	{
+		
+		Homed = Winch -> TargetReached ( 400.0 );
+		
+	}
+	
 	if ( Homed )
 	{
 		

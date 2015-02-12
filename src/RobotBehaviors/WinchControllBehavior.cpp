@@ -4,18 +4,17 @@
 #include "WinchControllBehavior.h"
 
 #include <cstddef>
+#include <iostream>
 
 WinchControllBehavior :: WinchControllBehavior ( LinearSlide * Winch, IBooleanInput * UpButton, IBooleanInput * DownButton, double JogSpeed ):
 	Winch ( Winch ),
 	UpButton ( UpButton ),
-	DownButton ( UpButton ),
+	DownButton ( DownButton ),
 	PositionTargets (),
-	JogSpeed ( JogSpeed )
+	JogSpeed ( JogSpeed ),
+	Targeting ( false )
 {
-	
-	
-	
-}
+};
 
 WinchControllBehavior :: ~WinchControllBehavior ()
 {
@@ -32,8 +31,10 @@ void WinchControllBehavior :: Destroy ()
 void WinchControllBehavior :: Start ()
 {
 	
+	Winch -> RunVelocity ( 0.0 );
 	Winch -> Enable ();
-	Winch -> RunVelocity ( 0 );
+	
+	Targeting = false;
 	
 };
 
@@ -47,12 +48,24 @@ void WinchControllBehavior :: Stop ()
 void WinchControllBehavior :: Update ()
 {
 	
-	if ( UpButton -> GetBoolean () && ! DownButton -> GetBoolean () )
-		Winch -> RunVelocity ( JogSpeed );
-	
-	if ( ! UpButton -> GetBoolean () && DownButton -> GetBoolean () )
-			Winch -> RunVelocity ( - JogSpeed );
+	if ( UpButton -> GetBoolean () && ( ! DownButton -> GetBoolean () ) )
+	{
 		
+		Winch -> RunVelocity ( JogSpeed );
+		
+		Targeting = false;
+		
+	}
+	else if ( DownButton -> GetBoolean () && ( ! UpButton -> GetBoolean () ) )
+	{
+		
+		Winch -> RunVelocity ( - JogSpeed );
+		
+		Targeting = false;
+		
+	}
+	else if ( ! Targeting )
+		Winch -> RunVelocity ( 0 );
 	
 	for ( uint32_t i = 0; i < PositionTargets.Length (); i ++ )
 	{
@@ -60,9 +73,19 @@ void WinchControllBehavior :: Update ()
 		PositionTargetButton * Target = PositionTargets [ i ];
 		
 		if ( Target -> Button -> GetBoolean () )
+		{
+			
 			Winch -> TargetPosition ( Target -> SetPoint );
+			
+			Targeting = true;
+			
+			break;
+			
+		}
 		
 	}
+	
+	Winch -> Update ();
 	
 };
 

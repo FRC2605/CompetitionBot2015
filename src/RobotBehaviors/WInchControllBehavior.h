@@ -52,6 +52,8 @@ private:
 	
 	double JogSpeed;
 	
+	bool Targeting;
+	
 };
 
 #endif
