@@ -3,25 +3,32 @@
 Robot :: Robot ():
 	WheelConfig ( CANTalon :: kSpeed, CANTalonConfiguration :: kFeedbackType_QuadratureEncoder ),
 	DriveBase ( 42, 14, 41, 13, 43, 15, 40, 1, WheelConfig, 40.0, 120.0 ),
+
 	Nav6Port ( Nav6 :: GetDefaultBaudRate () ),
 	Nav6Com ( & Nav6Port ),
 	Nav ( & Nav6Com, 100 ),
 	Nav6YawInput ( & Nav ),
 	OrientationOffset ( & Nav6YawInput ),
+
 	VProfile ( 2.0 ),
 	Drive ( & DriveBase ),
+
 	WinchServo ( 44, CANTalon :: QuadEncoder, 0 ),
 	WinchLimitHigh ( 2 ),
 	WinchLimitLow ( 1 ),
 	WinchLimits ( & WinchLimitLow, NULL ),
 	Winch ( & WinchServo, & WinchLimits, 10000.0, 0.0 ),
+
 	StrafeStick ( 0 ),
 	RotateStick ( 1 ),
 	StrafeInput ( & StrafeStick ),
 	RotateInput ( & RotateStick ),
+
 	WinchUpButton ( & RotateStick, 3 ),
 	WinchDownButton ( & RotateStick, 2 ),
+
 	FinePositioningButton ( & StrafeStick, 2 ),
+
 	Behaviors (),
 	DriveBehavior ( & Drive, & StrafeInput, & RotateInput, & FinePositioningButton ),
 	HomingBehavior ( & Winch, WinchControllBehavior :: GetDefaultBehaviorID (), false ),
