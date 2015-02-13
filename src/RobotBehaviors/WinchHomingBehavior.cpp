@@ -69,7 +69,7 @@ void WinchHomingBehavior :: Update ()
 		std :: cout << "Homed!\n";
 		
 		Winch -> SetLowLimit ( 0.0 );
-		Winch -> OverrideHighLimit ( 105012 );
+		Winch -> OverrideHighLimit ( 104000 );
 		
 		Controller -> StopBehavior ( AppliedID );
 		

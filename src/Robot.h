@@ -7,11 +7,15 @@
 #include <Hardware/Drive/CANTalonPositionServo.h>
 #include <Hardware/Drive/CANTalonQuadDriveBase.h>
 #include <Hardware/Drive/LinearSlide.h>
-
 #include <Hardware/Drive/MecanumDriveTrain.h>
 #include <Hardware/Drive/Filters/MecanumVelocityProfile.h>
+#include <Hardware/Drive/Filters/MecanumMagDirOrientationOffset.h>
+
+#include <COM/WPICom.h>
 
 #include <Sensing/DIO/DIOSwitchLimit.h>
+#include <Sensing/Nav6/Nav6.h>
+#include <Sensing/Nav6/Nav6YawAngularInput.h>
 
 #include <DSInput/JoystickXYInput.h>
 #include <DSInput/JoystickButtonInput.h>
@@ -45,6 +49,12 @@ private:
 	CANTalonConfiguration WheelConfig;
 	CANTalonQuadDriveBase DriveBase;
 	
+	SerialPort Nav6Port;
+	WPICom Nav6Com;
+	Nav6 Nav;
+	Nav6YawAngularInput Nav6YawInput;
+	
+	MecanumMagDirOrientationOffset OrientationOffset;
 	MecanumVelocityProfile VProfile;
 	
 	MecanumDriveTrain Drive;

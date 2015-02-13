@@ -3,6 +3,11 @@
 Robot :: Robot ():
 	WheelConfig ( CANTalon :: kSpeed, CANTalonConfiguration :: kFeedbackType_QuadratureEncoder ),
 	DriveBase ( 42, 14, 41, 13, 43, 15, 40, 1, WheelConfig, 40.0, 120.0 ),
+	Nav6Port ( Nav6 :: GetDefaultBaudRate () ),
+	Nav6Com ( & Nav6Port ),
+	Nav ( & Nav6Com, 100 ),
+	Nav6YawInput ( & Nav ),
+	OrientationOffset ( & Nav6YawInput ),
 	VProfile ( 2.0 ),
 	Drive ( & DriveBase ),
 	WinchServo ( 44, CANTalon :: QuadEncoder, 0 ),
@@ -36,6 +41,7 @@ Robot :: Robot ():
 	
 	Drive.SetMotorScale ( 7000 );
 	Drive.AddMagDirFilter ( & VProfile );
+	Drive.AddMagDirFilter ( & OrientationOffset );
 	
 	StrafeInput.SetDeadband ( 0.09 );
 	RotateInput.SetDeadband ( 0.09 );
@@ -45,6 +51,8 @@ Robot :: Robot ():
 	Behaviors.AddBehavior ( & DriveBehavior, JoystickMecanumDriveBehavior :: GetDefaultBehaviorID () );
 	Behaviors.AddBehavior ( & HomingBehavior, WinchHomingBehavior :: GetDefaultBehaviorID () );
 	Behaviors.AddBehavior ( & WinchBehavior, WinchControllBehavior :: GetDefaultBehaviorID () );
+	
+	Nav.Start ();
 	
 };
 
@@ -109,6 +117,8 @@ void Robot :: AutonomousPeriodic ()
 {
 	
 	Behaviors.Update ();
+	
+	OrientationOffset.CalibrateZero ();
 	
 };
 
