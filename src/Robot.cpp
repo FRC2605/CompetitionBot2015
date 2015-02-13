@@ -32,7 +32,7 @@ Robot :: Robot ():
 	Behaviors (),
 	DriveBehavior ( & Drive, & StrafeInput, & RotateInput, & FinePositioningButton ),
 	HomingBehavior ( & Winch, WinchControllBehavior :: GetDefaultBehaviorID (), false ),
-	WinchBehavior ( & Winch, & WinchUpButton, & WinchDownButton, 20000.0 )
+	WinchBehavior ( & Winch, & WinchUpButton, & WinchDownButton, 10000.0 )
 {
 	
 	WinchServo.SetProfileSlot ( 0 );

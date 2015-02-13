@@ -31,6 +31,7 @@ void WinchHomingBehavior :: Destroy ()
 void WinchHomingBehavior :: Start ()
 {
 	
+	std :: cout << "WHB :: Start ():\n	Enabling Winch!\n";
 	Winch -> Enable ();
 	
 	if ( ! Homed )
@@ -47,6 +48,7 @@ void WinchHomingBehavior :: Start ()
 void WinchHomingBehavior :: Stop ()
 {
 	
+	std :: cout << "WHB :: Stop ():\n	Disabling Winch!\n";
 	Winch -> Disable ();
 	
 };

@@ -68,7 +68,11 @@ void WinchControllBehavior :: Update ()
 		
 	}
 	else if ( ! Targeting )
+	{
+		
 		Winch -> RunVelocity ( 0 );
+		
+	}
 	
 	for ( uint32_t i = 0; i < PositionTargets.Length (); i ++ )
 	{
@@ -89,8 +93,6 @@ void WinchControllBehavior :: Update ()
 	}
 	
 	Winch -> Update ();
-	
-	std :: cout << "WinchPosition: " << Winch -> GetPosition () << "\n";
 	
 };
 
