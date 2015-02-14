@@ -1,12 +1,11 @@
 #ifndef SHS2605_POSITIONCONTROLBEHAVIOR_H
 #define SHS2605_POSITIONCONTROLBEHAVIOR_H
 
-#include "WinchControllBehavior.h"
-
+#include <RobotBehaviors/WinchControlBehavior.h>
 #include <cstddef>
 #include <iostream>
 
-WinchControllBehavior :: WinchControllBehavior ( LinearSlide * Winch, IBooleanInput * UpButton, IBooleanInput * DownButton, double JogSpeed ):
+WinchControlBehavior :: WinchControlBehavior ( LinearSlide * Winch, IBooleanInput * UpButton, IBooleanInput * DownButton, double JogSpeed ):
 	Winch ( Winch ),
 	UpButton ( UpButton ),
 	DownButton ( DownButton ),
@@ -16,19 +15,19 @@ WinchControllBehavior :: WinchControllBehavior ( LinearSlide * Winch, IBooleanIn
 {
 };
 
-WinchControllBehavior :: ~WinchControllBehavior ()
+WinchControlBehavior :: ~WinchControlBehavior ()
 {
 };
 
-void WinchControllBehavior :: Init ( BehaviorController * Controller, const char * AppliedID )
+void WinchControlBehavior :: Init ( BehaviorController * Controller, const char * AppliedID )
 {
 };
 
-void WinchControllBehavior :: Destroy ()
+void WinchControlBehavior :: Destroy ()
 {
 };
 
-void WinchControllBehavior :: Start ()
+void WinchControlBehavior :: Start ()
 {
 	
 	Winch -> RunVelocity ( 0.0 );
@@ -39,7 +38,7 @@ void WinchControllBehavior :: Start ()
 	
 };
 
-void WinchControllBehavior :: Stop ()
+void WinchControlBehavior :: Stop ()
 {
 	
 	Winch -> Disable ();
@@ -48,7 +47,7 @@ void WinchControllBehavior :: Stop ()
 
 #include <iostream>
 
-void WinchControllBehavior :: Update ()
+void WinchControlBehavior :: Update ()
 {
 	
 	if ( UpButton -> GetBoolean () && ( ! DownButton -> GetBoolean () ) )
@@ -96,7 +95,7 @@ void WinchControllBehavior :: Update ()
 	
 };
 
-void WinchControllBehavior :: AddPositionTargetButton ( PositionTargetButton * Target )
+void WinchControlBehavior :: AddPositionTargetButton ( PositionTargetButton * Target )
 {
 	
 	if ( Target == NULL )
@@ -109,7 +108,7 @@ void WinchControllBehavior :: AddPositionTargetButton ( PositionTargetButton * T
 	
 };
 
-void WinchControllBehavior :: RemovePositionTargetButton ( PositionTargetButton * Target )
+void WinchControlBehavior :: RemovePositionTargetButton ( PositionTargetButton * Target )
 {
 	
 	int32_t Index = PositionTargets.IndexOf ( Target, 0 );
@@ -121,10 +120,10 @@ void WinchControllBehavior :: RemovePositionTargetButton ( PositionTargetButton 
 	
 };
 
-const char * WinchControllBehavior :: GetDefaultBehaviorID ()
+const char * WinchControlBehavior :: GetDefaultBehaviorID ()
 {
 	
-	return WINCHCONTROLLBEHAVIOR_BID;
+	return WinchControlBEHAVIOR_BID;
 	
 };
 

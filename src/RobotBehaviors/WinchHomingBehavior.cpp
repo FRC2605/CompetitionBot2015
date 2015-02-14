@@ -2,12 +2,12 @@
 
 #include <iostream>
 
-WinchHomingBehavior :: WinchHomingBehavior ( LinearSlide * Winch, const char * WinchControllBehaviorID, bool StartWinchControl ):
+WinchHomingBehavior :: WinchHomingBehavior ( LinearSlide * Winch, const char * WinchControlBehaviorID, bool StartWinchControl ):
 	Winch ( Winch ),
 	Homed ( false ),
 	Controller ( NULL ),
 	AppliedID ( NULL ),
-	WinchControllID ( WinchControllBehaviorID ),
+	WinchControlID ( WinchControlBehaviorID ),
 	StartWinchControl ( StartWinchControl )
 {
 };
@@ -76,7 +76,7 @@ void WinchHomingBehavior :: Update ()
 		Controller -> StopBehavior ( AppliedID );
 		
 		if ( StartWinchControl )
-			Controller -> StartBehavior ( WinchControllID );
+			Controller -> StartBehavior ( WinchControlID );
 		
 	}
 	

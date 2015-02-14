@@ -10,9 +10,9 @@
 
 #include <Util/Vector.h>
 
-#define WINCHCONTROLLBEHAVIOR_BID "winch_control"
+#define WinchControlBEHAVIOR_BID "winch_control"
 
-class WinchControllBehavior : public IBehavior
+class WinchControlBehavior : public IBehavior
 {
 public:
 	
@@ -25,8 +25,8 @@ public:
 		
 	} PositionTargetButton;
 	
-	WinchControllBehavior ( LinearSlide * Winch, IBooleanInput * UpButton, IBooleanInput * DownButton, double JogSpeed );
-	~WinchControllBehavior ();
+	WinchControlBehavior ( LinearSlide * Winch, IBooleanInput * UpButton, IBooleanInput * DownButton, double JogSpeed );
+	~WinchControlBehavior ();
 	
 	void Init ( BehaviorController * Controller, const char * AppliedID );
 	void Destroy ();

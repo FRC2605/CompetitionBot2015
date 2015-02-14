@@ -31,7 +31,7 @@ Robot :: Robot ():
 
 	Behaviors (),
 	DriveBehavior ( & Drive, & StrafeInput, & RotateInput, & FinePositioningButton ),
-	HomingBehavior ( & Winch, WinchControllBehavior :: GetDefaultBehaviorID (), false ),
+	HomingBehavior ( & Winch, WinchControlBehavior :: GetDefaultBehaviorID (), false ),
 	WinchBehavior ( & Winch, & WinchUpButton, & WinchDownButton, 10000.0 )
 {
 	
@@ -57,7 +57,7 @@ Robot :: Robot ():
 	
 	Behaviors.AddBehavior ( & DriveBehavior, JoystickMecanumDriveBehavior :: GetDefaultBehaviorID () );
 	Behaviors.AddBehavior ( & HomingBehavior, WinchHomingBehavior :: GetDefaultBehaviorID () );
-	Behaviors.AddBehavior ( & WinchBehavior, WinchControllBehavior :: GetDefaultBehaviorID () );
+	Behaviors.AddBehavior ( & WinchBehavior, WinchControlBehavior :: GetDefaultBehaviorID () );
 	
 	Nav.Start ();
 	
@@ -101,7 +101,7 @@ void Robot :: DisabledInit ()
 	
 	Behaviors.StopBehavior ( JoystickMecanumDriveBehavior :: GetDefaultBehaviorID () );
 	Behaviors.StopBehavior ( WinchHomingBehavior :: GetDefaultBehaviorID () );
-	Behaviors.StopBehavior ( WinchControllBehavior :: GetDefaultBehaviorID () );
+	Behaviors.StopBehavior ( WinchControlBehavior :: GetDefaultBehaviorID () );
 	
 	
 };

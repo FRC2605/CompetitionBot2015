@@ -21,10 +21,10 @@
 #include <DSInput/JoystickButtonInput.h>
 
 #include <Behaviors/BehaviorController.h>
+#include <RobotBehaviors/WinchControlBehavior.h>
 
 #include "RobotBehaviors/JoystickMecanumDriveBehavior.h"
 #include "RobotBehaviors/WinchHomingBehavior.h"
-#include "Robotbehaviors/WinchControllBehavior.h"
 
 class Robot : public IterativeRobot
 {
@@ -85,7 +85,7 @@ private:
 	
 	JoystickMecanumDriveBehavior DriveBehavior;
 	WinchHomingBehavior HomingBehavior;
-	WinchControllBehavior WinchBehavior;
+	WinchControlBehavior WinchBehavior;
 	
 };
 

@@ -11,7 +11,7 @@ class WinchHomingBehavior : public IBehavior
 {
 public:
 	
-	WinchHomingBehavior ( LinearSlide * Winch, const char * WinchControllBehaviorID, bool StartWinchControl );
+	WinchHomingBehavior ( LinearSlide * Winch, const char * WinchControlBehaviorID, bool StartWinchControl );
 	~WinchHomingBehavior ();
 	
 	void Init ( BehaviorController * Controller, const char * AppliedID );
@@ -36,7 +36,7 @@ private:
 	BehaviorController * Controller;
 	const char * AppliedID;
 	
-	const char * WinchControllID;
+	const char * WinchControlID;
 	
 	bool StartWinchControl;
 	
