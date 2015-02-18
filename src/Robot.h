@@ -6,6 +6,7 @@
 #include <Hardware/Motors/CANTalonConfiguration.h>
 #include <Hardware/Drive/CANTalonPositionServo.h>
 #include <Hardware/Drive/CANTalonQuadDriveBase.h>
+#include <Hardware/Drive/DITalonPositionServo.h>
 #include <Hardware/Drive/LinearSlide.h>
 #include <Hardware/Drive/MecanumDriveTrain.h>
 #include <Hardware/Drive/Filters/MecanumVelocityProfile.h>
@@ -67,6 +68,11 @@ private:
 	DIOSwitchLimit WinchLimits;
 	
 	LinearSlide Winch;
+
+	// Counterweight
+	DITalonPositionServo CounterWeightServo;
+
+	LinearSlide CounterWeight;
 	
 	// Input
 	Joystick StrafeStick;
@@ -86,7 +92,6 @@ private:
 	JoystickMecanumDriveBehavior DriveBehavior;
 	WinchHomingBehavior HomingBehavior;
 	WinchControlBehavior WinchBehavior;
-	
 };
 
 #define ROBOT_CLASS Robot

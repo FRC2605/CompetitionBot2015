@@ -19,6 +19,9 @@ Robot :: Robot ():
 	WinchLimits ( & WinchLimitLow, NULL ),
 	Winch ( & WinchServo, & WinchLimits, 10000.0, 0.0 ),
 
+	CounterWeightServo ( 0, 0, 1 ),
+	CounterWeight ( & CounterWeightServo, 0.0, 0.0, 100.0 ),
+
 	StrafeStick ( 0 ),
 	RotateStick ( 1 ),
 	StrafeInput ( & StrafeStick ),
