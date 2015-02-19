@@ -16,8 +16,11 @@ class WinchControlBehavior : public IBehavior
 {
 public:
 	
-	typedef struct
+	typedef struct PositionTargetButton_Struct
 	{
+		
+		PositionTargetButton_Struct ( IBooleanInput * Button, double SetPoint );
+		~PositionTargetButton_Struct ();
 		
 		IBooleanInput * Button;
 		
@@ -25,7 +28,7 @@ public:
 		
 	} PositionTargetButton;
 	
-	WinchControlBehavior ( LinearSlide * Winch, IBooleanInput * UpButton, IBooleanInput * DownButton, double JogSpeed );
+	WinchControlBehavior ( LinearSlide * Winch, LinearSlide * Ballast, IBooleanInput * UpButton, IBooleanInput * DownButton, double JogSpeed );
 	~WinchControlBehavior ();
 	
 	void Init ( BehaviorController * Controller, const char * AppliedID );
@@ -36,19 +39,24 @@ public:
 	
 	void Update ();
 	
-	void AddPositionTargetButton ( PositionTargetButton * Target );
-	void RemovePositionTargetButton ( PositionTargetButton * Target );
+	void AddWinchPositionTargetButton ( PositionTargetButton * Target );
+	void RemoveWinchPositionTargetButton ( PositionTargetButton * Target );
+	
+	void AddBallastPositionTargetButton ( PositionTargetButton * Target );
+	void RemoveBallastPositionTargetButton ( PositionTargetButton * Target );
 	
 	static const char * GetDefaultBehaviorID ();
 	
 private:
 	
 	LinearSlide * Winch;
+	LinearSlide * Ballast;
 	
 	IBooleanInput * UpButton;
 	IBooleanInput * DownButton;
 	
-	Vector <PositionTargetButton *> PositionTargets;
+	Vector <PositionTargetButton *> WinchPositionTargets;
+	Vector <PositionTargetButton *> BallastPositionTargets;
 	
 	double JogSpeed;
 	

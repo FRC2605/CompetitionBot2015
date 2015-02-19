@@ -61,16 +61,21 @@ private:
 	
 	// Winch
 	CANTalonPositionServo WinchServo;
-	
-	DigitalInput WinchLimitHigh;
-	DigitalInput WinchLimitLow;
-	DIOSwitchLimit WinchLimits;
-	
 	LinearSlide Winch;
+	
+	// Ballast
+	
+	CANTalonPositionServo BallastServo;
+	
+	DigitalInput BallastLowLimit;
+	DIOSwitchLimit BallastLimits;
+	
+	LinearSlide Ballast;
 	
 	// Input
 	Joystick StrafeStick;
 	Joystick RotateStick;
+	Joystick DSButtons;
 	
 	JoystickXYInput StrafeInput;
 	JoystickXYInput RotateInput;
@@ -80,8 +85,28 @@ private:
 	
 	JoystickButtonInput FinePositioningButton;
 	
+	JoystickButtonInput WinchButton0;
+	JoystickButtonInput WinchButton1;
+	JoystickButtonInput WinchButton2;
+	JoystickButtonInput WinchButton3;
+	JoystickButtonInput WinchButton4;
+	JoystickButtonInput WinchButton5;
+	
+	JoystickButtonInput BallastButton0;
+	JoystickButtonInput BallastButton1;
+	
 	// Behaviors
 	BehaviorController Behaviors;
+	
+	WinchControlBehavior :: PositionTargetButton WinchPosition0;
+	WinchControlBehavior :: PositionTargetButton WinchPosition1;
+	WinchControlBehavior :: PositionTargetButton WinchPosition2;
+	WinchControlBehavior :: PositionTargetButton WinchPosition3;
+	WinchControlBehavior :: PositionTargetButton WinchPosition4;
+	WinchControlBehavior :: PositionTargetButton WinchPosition5;
+	
+	WinchControlBehavior :: PositionTargetButton BallastPosition0;
+	WinchControlBehavior :: PositionTargetButton BallastPosition1;
 	
 	JoystickMecanumDriveBehavior DriveBehavior;
 	WinchHomingBehavior HomingBehavior;

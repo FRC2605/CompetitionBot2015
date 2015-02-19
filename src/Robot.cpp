@@ -2,7 +2,7 @@
 
 Robot :: Robot ():
 	WheelConfig ( CANTalon :: kSpeed, CANTalonConfiguration :: kFeedbackType_QuadratureEncoder ),
-	DriveBase ( 42, 14, 41, 13, 43, 15, 40, 1, WheelConfig, 40.0, 120.0 ),
+	DriveBase ( 40, 14, 42, 1, 44, 15, 43, 0, WheelConfig, 40.0, 120.0 ),
 
 	Nav6Port ( Nav6 :: GetDefaultBaudRate () ),
 	Nav6Com ( & Nav6Port ),
@@ -13,14 +13,18 @@ Robot :: Robot ():
 	VProfile ( 2.0 ),
 	Drive ( & DriveBase ),
 
-	WinchServo ( 44, CANTalon :: QuadEncoder, 0 ),
-	WinchLimitHigh ( 2 ),
-	WinchLimitLow ( 1 ),
-	WinchLimits ( & WinchLimitLow, NULL ),
-	Winch ( & WinchServo, & WinchLimits, 10000.0, 0.0 ),
+	WinchServo ( 41, CANTalon :: QuadEncoder, 2 ),
+	Winch ( & WinchServo, NULL, 10000.0, 0.0, 0.0, 100000 ),
+	
+	BallastServo ( 45, CANTalon :: QuadEncoder, 13 ),
+	BallastLowLimit ( 0 ),
+	BallastLimits ( & BallastLowLimit, NULL ),
+	Ballast ( & BallastServo, & BallastLimits, - 7000.0, 0.0 ),
 
 	StrafeStick ( 0 ),
 	RotateStick ( 1 ),
+	DSButtons ( 5 ),
+	
 	StrafeInput ( & StrafeStick ),
 	RotateInput ( & RotateStick ),
 
@@ -28,15 +32,51 @@ Robot :: Robot ():
 	WinchDownButton ( & RotateStick, 2 ),
 
 	FinePositioningButton ( & StrafeStick, 2 ),
+	
+	WinchButton0 ( & DSButtons, 10 ),
+	WinchButton1 ( & DSButtons, 1 ),
+	WinchButton2 ( & DSButtons, 2 ),
+	WinchButton3 ( & DSButtons, 3 ),
+	WinchButton4 ( & DSButtons, 4 ),
+	WinchButton5 ( & DSButtons, 5 ),
+	
+	BallastButton0 ( & DSButtons, 8 ),
+	BallastButton1 ( & DSButtons, 9 ),
 
 	Behaviors (),
+	
+	WinchPosition0 ( & WinchButton0, 0.0 ),
+	WinchPosition1 ( & WinchButton1, 15000.0 ),
+	WinchPosition2 ( & WinchButton2, 30000.0 ),
+	WinchPosition3 ( & WinchButton3, 45000.0 ),
+	WinchPosition4 ( & WinchButton4, 60000.0 ),
+	WinchPosition5 ( & WinchButton5, 75000.0 ),
+	
+	BallastPosition0 ( & BallastButton0, 0.0 ),
+	BallastPosition1 ( & BallastButton1, - 7500.0 ),
+	
 	DriveBehavior ( & Drive, & StrafeInput, & RotateInput, & FinePositioningButton ),
-	HomingBehavior ( & Winch, WinchControlBehavior :: GetDefaultBehaviorID (), false ),
-	WinchBehavior ( & Winch, & WinchUpButton, & WinchDownButton, 10000.0 )
+	HomingBehavior ( & Winch, & Ballast, WinchControlBehavior :: GetDefaultBehaviorID (), false ),
+	WinchBehavior ( & Winch, & Ballast, & WinchUpButton, & WinchDownButton, 15000.0 )
 {
+	
+	WinchBehavior.AddWinchPositionTargetButton ( & WinchPosition0 );
+	WinchBehavior.AddWinchPositionTargetButton ( & WinchPosition1 );
+	WinchBehavior.AddWinchPositionTargetButton ( & WinchPosition2 );
+	WinchBehavior.AddWinchPositionTargetButton ( & WinchPosition3 );
+	WinchBehavior.AddWinchPositionTargetButton ( & WinchPosition4 );
+	WinchBehavior.AddWinchPositionTargetButton ( & WinchPosition5 );
+	
+	WinchBehavior.AddBallastPositionTargetButton ( & BallastPosition0 );
+	WinchBehavior.AddBallastPositionTargetButton ( & BallastPosition1 );
 	
 	WinchServo.SetProfileSlot ( 0 );
 	WinchServo.SetPIDF ( 0.7, 0.0, 0.3, 0.0 );
+	WinchServo.SetSensorInverted ( true );
+	
+	BallastServo.SetProfileSlot ( 0 );
+	BallastServo.SetSensorInverted ( true );
+	BallastServo.SetPIDF ( 0.7, 0.0, 0.3, 0.0 );
 	
 	WheelConfig.SetPIDF ( 0.2, 0.0, 0.0, 0.0 );
 	WheelConfig.SetControlSlot ( 0 );
@@ -71,6 +111,8 @@ void Robot :: TeleopInit ()
 {
 	
 	HomingBehavior.SetStartWinchControl ( true );
+	
+	HomingBehavior.ResetHomed ();
 	
 	Behaviors.StartBehavior ( JoystickMecanumDriveBehavior :: GetDefaultBehaviorID () );
 	Behaviors.StartBehavior ( WinchHomingBehavior :: GetDefaultBehaviorID () );
@@ -110,6 +152,8 @@ void Robot :: TeleopPeriodic ()
 {
 	
 	Behaviors.Update ();
+	
+	std :: cout << "Winch position: " << Winch.GetPosition () << "\n";
 	
 };
 

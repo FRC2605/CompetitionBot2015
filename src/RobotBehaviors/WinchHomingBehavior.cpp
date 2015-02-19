@@ -2,8 +2,9 @@
 
 #include <iostream>
 
-WinchHomingBehavior :: WinchHomingBehavior ( LinearSlide * Winch, const char * WinchControlBehaviorID, bool StartWinchControl ):
+WinchHomingBehavior :: WinchHomingBehavior ( LinearSlide * Winch, LinearSlide * Ballast, const char * WinchControlBehaviorID, bool StartWinchControl ):
 	Winch ( Winch ),
+	Ballast ( Ballast ),
 	Homed ( false ),
 	Controller ( NULL ),
 	AppliedID ( NULL ),
@@ -31,13 +32,20 @@ void WinchHomingBehavior :: Destroy ()
 void WinchHomingBehavior :: Start ()
 {
 	
-	std :: cout << "WHB :: Start ():\n	Enabling Winch!\n";
+	Ballast -> Enable ();
 	Winch -> Enable ();
 	
 	if ( ! Homed )
 	{
 		
-		Winch -> HomeLow ();
+		Ballast -> HomeLow ();
+		
+		Winch -> SetPosition ( 0.0 );
+		
+		Winch -> OverrideLowLimit ( 0.0 );
+		Winch -> OverrideHighLimit ( 85000.0 );
+		
+		Winch -> TargetPosition ( 0.0 );
 		
 		std :: cout << "Homing low\n";
 		
@@ -48,8 +56,8 @@ void WinchHomingBehavior :: Start ()
 void WinchHomingBehavior :: Stop ()
 {
 	
-	std :: cout << "WHB :: Stop ():\n	Disabling Winch!\n";
 	Winch -> Disable ();
+	Ballast -> Disable ();
 	
 };
 
@@ -57,21 +65,17 @@ void WinchHomingBehavior :: Update ()
 {
 	
 	Winch -> Update ();
+	Ballast -> Update ();
 	
 	if ( ! Homed )
 	{
 		
-		Homed = Winch -> TargetReached ( 0.0 );
+		Homed = Winch -> TargetReached ( 400.0 ) && Ballast -> TargetReached ( 400.0 );
 		
 	}
 	
 	if ( Homed )
 	{
-		
-		std :: cout << "Homed!\n";
-		
-		Winch -> SetLowLimit ( 0.0 );
-		Winch -> OverrideHighLimit ( 104000 );
 		
 		Controller -> StopBehavior ( AppliedID );
 		

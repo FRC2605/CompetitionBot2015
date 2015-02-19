@@ -46,10 +46,10 @@ void JoystickMecanumDriveBehavior :: Update ()
 	
 	double R = Rotate -> GetX () / RScale;
 	
-	double FineScale = FinePositioningButton -> GetBoolean () ? 0.3 : 1.0;
+	double FineScale = FinePositioningButton -> GetBoolean () ? 0.5 : 1.0;
 	
 	Drive -> SetTranslation ( X, Y );
-	Drive -> SetRotation ( R );
+	Drive -> SetRotation ( R / 1.5 );
 	
 	Drive -> SetPreScale ( FineScale, FineScale );
 	

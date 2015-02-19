@@ -5,17 +5,29 @@
 #include <cstddef>
 #include <iostream>
 
-WinchControlBehavior :: WinchControlBehavior ( LinearSlide * Winch, IBooleanInput * UpButton, IBooleanInput * DownButton, double JogSpeed ):
+WinchControlBehavior :: WinchControlBehavior ( LinearSlide * Winch, LinearSlide * Ballast, IBooleanInput * UpButton, IBooleanInput * DownButton, double JogSpeed ):
 	Winch ( Winch ),
+	Ballast ( Ballast ),
 	UpButton ( UpButton ),
 	DownButton ( DownButton ),
-	PositionTargets (),
+	WinchPositionTargets (),
+	BallastPositionTargets (),
 	JogSpeed ( JogSpeed ),
 	Targeting ( false )
 {
 };
 
 WinchControlBehavior :: ~WinchControlBehavior ()
+{
+};
+
+WinchControlBehavior :: PositionTargetButton_Struct :: PositionTargetButton_Struct ( IBooleanInput * Button, double SetPoint ):
+	Button ( Button ),
+	SetPoint ( SetPoint )
+{	
+};
+
+WinchControlBehavior :: PositionTargetButton_Struct :: ~PositionTargetButton_Struct ()
 {
 };
 
@@ -31,8 +43,10 @@ void WinchControlBehavior :: Start ()
 {
 	
 	Winch -> RunVelocity ( 0.0 );
-	
 	Winch -> Enable ();
+	
+	Ballast -> RunVelocity ( 0.0 );
+	Ballast -> Enable ();
 	
 	Targeting = false;
 	
@@ -42,6 +56,7 @@ void WinchControlBehavior :: Stop ()
 {
 	
 	Winch -> Disable ();
+	Ballast -> Disable ();
 	
 };
 
@@ -73,10 +88,12 @@ void WinchControlBehavior :: Update ()
 		
 	}
 	
-	for ( uint32_t i = 0; i < PositionTargets.Length (); i ++ )
+	PositionTargetButton * Target;
+	
+	for ( uint32_t i = 0; i < WinchPositionTargets.Length (); i ++ )
 	{
 		
-		PositionTargetButton * Target = PositionTargets [ i ];
+		Target = WinchPositionTargets [ i ];
 		
 		if ( Target -> Button -> GetBoolean () )
 		{
@@ -91,32 +108,69 @@ void WinchControlBehavior :: Update ()
 		
 	}
 	
+	for ( uint32_t i = 0; i < BallastPositionTargets.Length (); i ++ )
+	{
+		
+		Target = BallastPositionTargets [ i ];
+		
+		if ( Target -> Button -> GetBoolean () )
+			Ballast -> TargetPosition ( Target -> SetPoint );
+		
+	}
+	
+	
 	Winch -> Update ();
+	Ballast -> Update ();
 	
 };
 
-void WinchControlBehavior :: AddPositionTargetButton ( PositionTargetButton * Target )
+void WinchControlBehavior :: AddWinchPositionTargetButton ( PositionTargetButton * Target )
 {
 	
 	if ( Target == NULL )
 		return;
 	
-	if ( PositionTargets.IndexOf ( Target, 0 ) == - 1 )
+	if ( WinchPositionTargets.IndexOf ( Target, 0 ) != - 1 )
 		return;
 	
-	PositionTargets.Push ( Target );
+	WinchPositionTargets.Push ( Target );
 	
 };
 
-void WinchControlBehavior :: RemovePositionTargetButton ( PositionTargetButton * Target )
+void WinchControlBehavior :: RemoveWinchPositionTargetButton ( PositionTargetButton * Target )
 {
 	
-	int32_t Index = PositionTargets.IndexOf ( Target, 0 );
+	int32_t Index = WinchPositionTargets.IndexOf ( Target, 0 );
 	
 	if ( Index == - 1 )
 		return;
 	
-	PositionTargets.Remove ( Index, 1 );
+	WinchPositionTargets.Remove ( Index, 1 );
+	
+};
+
+void WinchControlBehavior :: AddBallastPositionTargetButton ( PositionTargetButton * Target )
+{
+	
+	if ( Target == NULL )
+		return;
+	
+	if ( BallastPositionTargets.IndexOf ( Target, 0 ) != - 1 )
+		return;
+	
+	BallastPositionTargets.Push ( Target );
+	
+};
+
+void WinchControlBehavior :: RemoveBallastPositionTargetButton ( PositionTargetButton * Target )
+{
+	
+	int32_t Index = BallastPositionTargets.IndexOf ( Target, 0 );
+	
+	if ( Index == - 1 )
+		return;
+	
+	BallastPositionTargets.Remove ( Index, 1 );
 	
 };
 
