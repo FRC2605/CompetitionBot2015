@@ -38,7 +38,6 @@ Robot :: Robot ():
 	WinchButton2 ( & DSButtons, 2 ),
 	WinchButton3 ( & DSButtons, 3 ),
 	WinchButton4 ( & DSButtons, 4 ),
-	WinchButton5 ( & DSButtons, 5 ),
 	
 	BallastButton0 ( & DSButtons, 8 ),
 	BallastButton1 ( & DSButtons, 9 ),
@@ -46,14 +45,13 @@ Robot :: Robot ():
 	Behaviors (),
 	
 	WinchPosition0 ( & WinchButton0, 0.0 ),
-	WinchPosition1 ( & WinchButton1, 15000.0 ),
-	WinchPosition2 ( & WinchButton2, 30000.0 ),
-	WinchPosition3 ( & WinchButton3, 45000.0 ),
-	WinchPosition4 ( & WinchButton4, 60000.0 ),
-	WinchPosition5 ( & WinchButton5, 75000.0 ),
+	WinchPosition1 ( & WinchButton1, 31200.0 ),
+	WinchPosition2 ( & WinchButton2, 51322.0 ),
+	WinchPosition3 ( & WinchButton3, 71007.0 ),
+	WinchPosition4 ( & WinchButton4, 90800.0 ),
 	
 	BallastPosition0 ( & BallastButton0, 0.0 ),
-	BallastPosition1 ( & BallastButton1, - 7500.0 ),
+	BallastPosition1 ( & BallastButton1, - 12000.0 ),
 	
 	DriveBehavior ( & Drive, & StrafeInput, & RotateInput, & FinePositioningButton ),
 	HomingBehavior ( & Winch, & Ballast, WinchControlBehavior :: GetDefaultBehaviorID (), false ),
@@ -65,7 +63,6 @@ Robot :: Robot ():
 	WinchBehavior.AddWinchPositionTargetButton ( & WinchPosition2 );
 	WinchBehavior.AddWinchPositionTargetButton ( & WinchPosition3 );
 	WinchBehavior.AddWinchPositionTargetButton ( & WinchPosition4 );
-	WinchBehavior.AddWinchPositionTargetButton ( & WinchPosition5 );
 	
 	WinchBehavior.AddBallastPositionTargetButton ( & BallastPosition0 );
 	WinchBehavior.AddBallastPositionTargetButton ( & BallastPosition1 );

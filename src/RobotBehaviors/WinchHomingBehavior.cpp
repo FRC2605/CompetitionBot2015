@@ -43,7 +43,7 @@ void WinchHomingBehavior :: Start ()
 		Winch -> SetPosition ( 0.0 );
 		
 		Winch -> OverrideLowLimit ( 0.0 );
-		Winch -> OverrideHighLimit ( 85000.0 );
+		Winch -> OverrideHighLimit ( 92000.0 );
 		
 		Winch -> TargetPosition ( 0.0 );
 		

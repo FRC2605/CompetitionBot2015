@@ -90,7 +90,6 @@ private:
 	JoystickButtonInput WinchButton2;
 	JoystickButtonInput WinchButton3;
 	JoystickButtonInput WinchButton4;
-	JoystickButtonInput WinchButton5;
 	
 	JoystickButtonInput BallastButton0;
 	JoystickButtonInput BallastButton1;
@@ -103,7 +102,6 @@ private:
 	WinchControlBehavior :: PositionTargetButton WinchPosition2;
 	WinchControlBehavior :: PositionTargetButton WinchPosition3;
 	WinchControlBehavior :: PositionTargetButton WinchPosition4;
-	WinchControlBehavior :: PositionTargetButton WinchPosition5;
 	
 	WinchControlBehavior :: PositionTargetButton BallastPosition0;
 	WinchControlBehavior :: PositionTargetButton BallastPosition1;
