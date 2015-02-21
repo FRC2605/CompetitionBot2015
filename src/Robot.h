@@ -75,7 +75,6 @@ private:
 	// Input
 	Joystick StrafeStick;
 	Joystick RotateStick;
-	Joystick DSButtons;
 	
 	JoystickXYInput StrafeInput;
 	JoystickXYInput RotateInput;

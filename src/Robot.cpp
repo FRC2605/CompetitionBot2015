@@ -23,7 +23,6 @@ Robot :: Robot ():
 
 	StrafeStick ( 0 ),
 	RotateStick ( 1 ),
-	DSButtons ( 5 ),
 	
 	StrafeInput ( & StrafeStick ),
 	RotateInput ( & RotateStick ),
@@ -33,15 +32,15 @@ Robot :: Robot ():
 
 	FinePositioningButton ( & StrafeStick, 2 ),
 	
-	WinchButton0 ( & DSButtons, 10 ),
-	WinchButton1 ( & DSButtons, 1 ),
-	WinchButton2 ( & DSButtons, 2 ),
-	WinchButton3 ( & DSButtons, 3 ),
-	WinchButton4 ( & DSButtons, 4 ),
-	WinchButton5 ( & DSButtons, 5 ),
+	WinchButton0 ( & RotateStick, 6 ),
+	WinchButton1 ( & RotateStick, 7 ),
+	WinchButton2 ( & RotateStick, 8 ),
+	WinchButton3 ( & RotateStick, 9 ),
+	WinchButton4 ( & RotateStick, 10 ),
+	WinchButton5 ( & RotateStick, 11 ),
 	
-	BallastButton0 ( & DSButtons, 8 ),
-	BallastButton1 ( & DSButtons, 9 ),
+	BallastButton0 ( & StrafeStick, 2 ),
+	BallastButton1 ( & StrafeStick, 3 ),
 
 	Behaviors (),
 	
