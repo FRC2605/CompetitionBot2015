@@ -17,8 +17,8 @@
 #include <Sensing/Nav6/Nav6.h>
 #include <Sensing/Nav6/Nav6YawAngularInput.h>
 
-#include <DSInput/JoystickXYInput.h>
-#include <DSInput/JoystickButtonInput.h>
+#include <DriverStation/JoystickXYInput.h>
+#include <DriverStation/JoystickButtonInput.h>
 
 #include <Behaviors/BehaviorController.h>
 #include <RobotBehaviors/WinchControlBehavior.h>
