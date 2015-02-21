@@ -19,7 +19,7 @@ Robot :: Robot ():
 	BallastServo ( 45, CANTalon :: QuadEncoder, 13 ),
 	BallastLowLimit ( 0 ),
 	BallastLimits ( & BallastLowLimit, NULL ),
-	Ballast ( & BallastServo, & BallastLimits, - 7000.0, 0.0 ),
+	Ballast ( & BallastServo, & BallastLimits, - 12000.0, 0.0 ),
 
 	StrafeStick ( 0 ),
 	RotateStick ( 1 ),
@@ -39,20 +39,22 @@ Robot :: Robot ():
 	WinchButton4 ( & RotateStick, 10 ),
 	WinchButton5 ( & RotateStick, 11 ),
 	
-	BallastButton0 ( & StrafeStick, 2 ),
+	BallastButton0 ( & StrafeStick, 5 ),
 	BallastButton1 ( & StrafeStick, 3 ),
+	BallastButton2 ( & StrafeStick, 4 ),
 
 	Behaviors (),
 	
 	WinchPosition0 ( & WinchButton0, 0.0 ),
-	WinchPosition1 ( & WinchButton1, 15000.0 ),
-	WinchPosition2 ( & WinchButton2, 30000.0 ),
-	WinchPosition3 ( & WinchButton3, 45000.0 ),
-	WinchPosition4 ( & WinchButton4, 60000.0 ),
-	WinchPosition5 ( & WinchButton5, 75000.0 ),
+	WinchPosition1 ( & WinchButton1, 18000.0 ),
+	WinchPosition2 ( & WinchButton2, 36000.0 ),
+	WinchPosition3 ( & WinchButton3, 54000.0 ),
+	WinchPosition4 ( & WinchButton4, 72000.0 ),
+	WinchPosition5 ( & WinchButton5, 90000.0 ),
 	
 	BallastPosition0 ( & BallastButton0, 0.0 ),
-	BallastPosition1 ( & BallastButton1, - 7500.0 ),
+	BallastPosition1 ( & BallastButton1, -7000.0 ),
+	BallastPosition2 ( & BallastButton2, - 11500.0 ),
 	
 	DriveBehavior ( & Drive, & StrafeInput, & RotateInput, & FinePositioningButton ),
 	HomingBehavior ( & Winch, & Ballast, WinchControlBehavior :: GetDefaultBehaviorID (), false ),
@@ -68,6 +70,7 @@ Robot :: Robot ():
 	
 	WinchBehavior.AddBallastPositionTargetButton ( & BallastPosition0 );
 	WinchBehavior.AddBallastPositionTargetButton ( & BallastPosition1 );
+	WinchBehavior.AddBallastPositionTargetButton ( & BallastPosition2 );
 	
 	WinchServo.SetProfileSlot ( 0 );
 	WinchServo.SetPIDF ( 0.7, 0.0, 0.3, 0.0 );

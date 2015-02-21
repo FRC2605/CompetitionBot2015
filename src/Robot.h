@@ -93,6 +93,7 @@ private:
 	
 	JoystickButtonInput BallastButton0;
 	JoystickButtonInput BallastButton1;
+	JoystickButtonInput BallastButton2;
 	
 	// Behaviors
 	BehaviorController Behaviors;
@@ -106,6 +107,7 @@ private:
 	
 	WinchControlBehavior :: PositionTargetButton BallastPosition0;
 	WinchControlBehavior :: PositionTargetButton BallastPosition1;
+	WinchControlBehavior :: PositionTargetButton BallastPosition2;
 	
 	JoystickMecanumDriveBehavior DriveBehavior;
 	WinchHomingBehavior HomingBehavior;
