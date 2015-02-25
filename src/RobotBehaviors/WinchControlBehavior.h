@@ -9,6 +9,7 @@
 #include <Sensing/IBooleanInput.h>
 
 #include <Indication/IBooleanIndicator.h>
+#include <Indication/BooleanIndicatorBlinker.h>
 
 #include <Util/Vector.h>
 
@@ -65,7 +66,7 @@ private:
 	
 	bool Targeting;
 	
-	IBooleanIndicator * LastIndication;
+	BooleanIndicatorBlinker Blinker;
 	
 };
 

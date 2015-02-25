@@ -14,7 +14,7 @@ WinchControlBehavior :: WinchControlBehavior ( LinearSlide * Winch, LinearSlide 
 	BallastPositionTargets (),
 	JogSpeed ( JogSpeed ),
 	Targeting ( false ),
-	LastIndication ( NULL )
+	Blinker ( 4 )
 {
 };
 
@@ -74,14 +74,7 @@ void WinchControlBehavior :: Update ()
 		
 		Targeting = false;
 		
-		if ( LastIndication != NULL )
-		{
-		
-			LastIndication -> Set ( false );
-			
-			LastIndication = NULL;
-			
-		}
+		Blinker.SetIndicator ( NULL, false );
 		
 	}
 	else if ( DownButton -> GetBoolean () && ( ! UpButton -> GetBoolean () ) )
@@ -91,14 +84,7 @@ void WinchControlBehavior :: Update ()
 		
 		Targeting = false;
 		
-		if ( LastIndication != NULL )
-		{
-		
-			LastIndication -> Set ( false );
-			
-			LastIndication = NULL;
-			
-		}
+		Blinker.SetIndicator ( NULL, false );
 		
 	}
 	else if ( ! Targeting )
@@ -118,13 +104,7 @@ void WinchControlBehavior :: Update ()
 		if ( Target -> Button -> GetBoolean () )
 		{
 			
-			if ( LastIndication != NULL )
-				LastIndication -> Set ( false );
-			
-			if ( Target -> Indicator != NULL )
-				Target -> Indicator -> Set ( true );
-				
-			LastIndication = Target -> Indicator;
+			Blinker.SetIndicator ( Target -> Indicator, false );
 			
 			Winch -> TargetPosition ( Target -> SetPoint );
 			
@@ -135,6 +115,9 @@ void WinchControlBehavior :: Update ()
 		}
 		
 	}
+	
+	if ( Targeting )
+		Blinker.SetMode ( Winch -> TargetReached ( 300 ) ? BooleanIndicatorBlinker :: kMode_On : BooleanIndicatorBlinker :: kMode_Blinking );
 	
 	for ( uint32_t i = 0; i < BallastPositionTargets.Length (); i ++ )
 	{
@@ -149,6 +132,7 @@ void WinchControlBehavior :: Update ()
 	
 	Winch -> Update ();
 	Ballast -> Update ();
+	Blinker.Update ();
 	
 };
 
