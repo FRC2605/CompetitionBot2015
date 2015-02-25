@@ -1,5 +1,7 @@
 #include "Robot.h"
 
+#include <math.h>
+
 Robot :: Robot ():
 	WheelConfig ( CANTalon :: kSpeed, CANTalonConfiguration :: kFeedbackType_QuadratureEncoder ),
 	DriveBase ( 40, 14, 42, 1, 44, 15, 43, 0, WheelConfig, 40.0, 120.0 ),
@@ -60,8 +62,10 @@ Robot :: Robot ():
 	BallastPosition1 ( & BallastButton1, NULL, - 12000.0 ),
 	
 	DriveBehavior ( & Drive, & StrafeInput, & RotateInput, & FinePositioningButton ),
-	HomingBehavior ( & Winch, & Ballast, WinchControlBehavior :: GetDefaultBehaviorID (), false ),
-	WinchBehavior ( & Winch, & Ballast, & WinchUpButton, & WinchDownButton, 15000.0 )
+	HomingBehavior ( & Winch, & Ballast ),
+	WinchBehavior ( & Winch, & Ballast, & WinchUpButton, & WinchDownButton, 15000.0 ),
+	AutoBehavior ( & Drive, & Winch, & Nav6YawInput ),
+	YawCalibrationBehavior ( & OrientationOffset, M_PI )
 {
 	
 	WinchBehavior.AddWinchPositionTargetButton ( & WinchPosition0 );
@@ -102,6 +106,10 @@ Robot :: Robot ():
 	Behaviors.AddBehavior ( & DriveBehavior, JoystickMecanumDriveBehavior :: GetDefaultBehaviorID () );
 	Behaviors.AddBehavior ( & HomingBehavior, WinchHomingBehavior :: GetDefaultBehaviorID () );
 	Behaviors.AddBehavior ( & WinchBehavior, WinchControlBehavior :: GetDefaultBehaviorID () );
+	Behaviors.AddBehavior ( & AutoBehavior, AutonomousBehavior :: GetDefaultBehaviorID () );
+	Behaviors.AddBehavior ( & YawCalibrationBehavior, Nav6CalibrationBehavior :: GetDefaultBehaviorID () );
+	
+	Behaviors.StartBehavior ( Nav6CalibrationBehavior :: GetDefaultBehaviorID () );
 	
 	Nav.Start ();
 	
@@ -114,19 +122,14 @@ Robot :: ~Robot ()
 void Robot :: TeleopInit ()
 {
 	
-	HomingBehavior.SetStartWinchControl ( true );
-	
-	HomingBehavior.ResetHomed ();
-	
 	Behaviors.StartBehavior ( JoystickMecanumDriveBehavior :: GetDefaultBehaviorID () );
-	Behaviors.StartBehavior ( WinchHomingBehavior :: GetDefaultBehaviorID () );
+	Behaviors.StartBehavior ( WinchControlBehavior :: GetDefaultBehaviorID () );
 	
 };
 
 void Robot :: TestInit ()
 {
 	
-	HomingBehavior.SetStartWinchControl ( false );
 	HomingBehavior.ResetHomed ();
 	
 	Behaviors.StartBehavior ( WinchHomingBehavior :: GetDefaultBehaviorID () );
@@ -136,9 +139,10 @@ void Robot :: TestInit ()
 void Robot :: AutonomousInit ()
 {
 	
-	HomingBehavior.SetStartWinchControl ( false );
+	Behaviors.StopBehavior ( Nav6CalibrationBehavior :: GetDefaultBehaviorID () );
 	
 	Behaviors.StartBehavior ( WinchHomingBehavior :: GetDefaultBehaviorID () );
+	Behaviors.StartBehavior ( AutonomousBehavior :: GetDefaultBehaviorID () );
 	
 };
 
@@ -148,7 +152,7 @@ void Robot :: DisabledInit ()
 	Behaviors.StopBehavior ( JoystickMecanumDriveBehavior :: GetDefaultBehaviorID () );
 	Behaviors.StopBehavior ( WinchHomingBehavior :: GetDefaultBehaviorID () );
 	Behaviors.StopBehavior ( WinchControlBehavior :: GetDefaultBehaviorID () );
-	
+	Behaviors.StopBehavior ( AutonomousBehavior :: GetDefaultBehaviorID () );
 	
 };
 
@@ -156,8 +160,6 @@ void Robot :: TeleopPeriodic ()
 {
 	
 	Behaviors.Update ();
-	
-	std :: cout << "Winch position: " << Winch.GetPosition () << "\n";
 	
 };
 

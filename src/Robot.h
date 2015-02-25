@@ -26,6 +26,8 @@
 #include "RobotBehaviors/WinchControlBehavior.h"
 #include "RobotBehaviors/JoystickMecanumDriveBehavior.h"
 #include "RobotBehaviors/WinchHomingBehavior.h"
+#include "RobotBehaviors/AutonomousBehavior.h"
+#include "RobotBehaviors/Nav6CalibrationBehavior.h"
 
 class Robot : public IterativeRobot
 {
@@ -118,6 +120,8 @@ private:
 	JoystickMecanumDriveBehavior DriveBehavior;
 	WinchHomingBehavior HomingBehavior;
 	WinchControlBehavior WinchBehavior;
+	AutonomousBehavior AutoBehavior;
+	Nav6CalibrationBehavior YawCalibrationBehavior;
 	
 };
 
