@@ -8,6 +8,8 @@
 
 #include <Sensing/IBooleanInput.h>
 
+#include <Indication/IBooleanIndicator.h>
+
 #include <Util/Vector.h>
 
 #define WinchControlBEHAVIOR_BID "winch_control"
@@ -19,10 +21,11 @@ public:
 	typedef struct PositionTargetButton_Struct
 	{
 		
-		PositionTargetButton_Struct ( IBooleanInput * Button, double SetPoint );
+		PositionTargetButton_Struct ( IBooleanInput * Button, IBooleanIndicator * Indicator, double SetPoint );
 		~PositionTargetButton_Struct ();
 		
 		IBooleanInput * Button;
+		IBooleanIndicator * Indicator;
 		
 		double SetPoint;
 		
@@ -61,6 +64,8 @@ private:
 	double JogSpeed;
 	
 	bool Targeting;
+	
+	IBooleanIndicator * LastIndication;
 	
 };
 

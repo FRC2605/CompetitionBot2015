@@ -41,17 +41,23 @@ Robot :: Robot ():
 	
 	BallastButton0 ( & DSButtons, 8 ),
 	BallastButton1 ( & DSButtons, 9 ),
+	
+	WinchLight0 ( & DSButtons, 1 ),
+	WinchLight1 ( & DSButtons, 2 ),
+	WinchLight2 ( & DSButtons, 3 ),
+	WinchLight3 ( & DSButtons, 4 ),
+	WinchLight4 ( & DSButtons, 5 ),
 
 	Behaviors (),
 	
-	WinchPosition0 ( & WinchButton0, 0.0 ),
-	WinchPosition1 ( & WinchButton1, 31200.0 ),
-	WinchPosition2 ( & WinchButton2, 51322.0 ),
-	WinchPosition3 ( & WinchButton3, 71007.0 ),
-	WinchPosition4 ( & WinchButton4, 90800.0 ),
+	WinchPosition0 ( & WinchButton0, & WinchLight0, 0.0 ),
+	WinchPosition1 ( & WinchButton1, & WinchLight1, 31200.0 ),
+	WinchPosition2 ( & WinchButton2, & WinchLight2, 51322.0 ),
+	WinchPosition3 ( & WinchButton3, & WinchLight3, 71007.0 ),
+	WinchPosition4 ( & WinchButton4, & WinchLight4, 90800.0 ),
 	
-	BallastPosition0 ( & BallastButton0, 0.0 ),
-	BallastPosition1 ( & BallastButton1, - 12000.0 ),
+	BallastPosition0 ( & BallastButton0, NULL, 0.0 ),
+	BallastPosition1 ( & BallastButton1, NULL, - 12000.0 ),
 	
 	DriveBehavior ( & Drive, & StrafeInput, & RotateInput, & FinePositioningButton ),
 	HomingBehavior ( & Winch, & Ballast, WinchControlBehavior :: GetDefaultBehaviorID (), false ),
@@ -75,13 +81,14 @@ Robot :: Robot ():
 	BallastServo.SetSensorInverted ( true );
 	BallastServo.SetPIDF ( 0.7, 0.0, 0.3, 0.0 );
 	
-	WheelConfig.SetPIDF ( 0.2, 0.0, 0.0, 0.0 );
+	WheelConfig.SetPIDF ( 0.5, 0.0, 2.0, 0.0 );
 	WheelConfig.SetControlSlot ( 0 );
-	WheelConfig.SetRampRates ( 0.0, 0.0 );
+	WheelConfig.SetRampRates ( 25.0, 0.0 );
 	WheelConfig.SetNeutralMode ( CANTalon :: kNeutralMode_Brake );
 	
 	DriveBase.SetWheelConfig ( WheelConfig );
 	DriveBase.SetInversion ( false, true, false, true );
+	DriveBase.SetSensorInversion ( true, false, false, true );
 	
 	Drive.SetMotorScale ( 7000 );
 	Drive.AddMagDirFilter ( & VProfile );

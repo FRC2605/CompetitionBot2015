@@ -13,7 +13,8 @@ WinchControlBehavior :: WinchControlBehavior ( LinearSlide * Winch, LinearSlide 
 	WinchPositionTargets (),
 	BallastPositionTargets (),
 	JogSpeed ( JogSpeed ),
-	Targeting ( false )
+	Targeting ( false ),
+	LastIndication ( NULL )
 {
 };
 
@@ -21,8 +22,9 @@ WinchControlBehavior :: ~WinchControlBehavior ()
 {
 };
 
-WinchControlBehavior :: PositionTargetButton_Struct :: PositionTargetButton_Struct ( IBooleanInput * Button, double SetPoint ):
+WinchControlBehavior :: PositionTargetButton_Struct :: PositionTargetButton_Struct ( IBooleanInput * Button, IBooleanIndicator * Indicator, double SetPoint ):
 	Button ( Button ),
+	Indicator ( Indicator ),
 	SetPoint ( SetPoint )
 {	
 };
@@ -72,6 +74,15 @@ void WinchControlBehavior :: Update ()
 		
 		Targeting = false;
 		
+		if ( LastIndication != NULL )
+		{
+		
+			LastIndication -> Set ( false );
+			
+			LastIndication = NULL;
+			
+		}
+		
 	}
 	else if ( DownButton -> GetBoolean () && ( ! UpButton -> GetBoolean () ) )
 	{
@@ -79,6 +90,15 @@ void WinchControlBehavior :: Update ()
 		Winch -> RunVelocity ( - JogSpeed );
 		
 		Targeting = false;
+		
+		if ( LastIndication != NULL )
+		{
+		
+			LastIndication -> Set ( false );
+			
+			LastIndication = NULL;
+			
+		}
 		
 	}
 	else if ( ! Targeting )
@@ -97,6 +117,14 @@ void WinchControlBehavior :: Update ()
 		
 		if ( Target -> Button -> GetBoolean () )
 		{
+			
+			if ( LastIndication != NULL )
+				LastIndication -> Set ( false );
+			
+			if ( Target -> Indicator != NULL )
+				Target -> Indicator -> Set ( true );
+				
+			LastIndication = Target -> Indicator;
 			
 			Winch -> TargetPosition ( Target -> SetPoint );
 			

@@ -17,12 +17,13 @@
 #include <Sensing/Nav6/Nav6.h>
 #include <Sensing/Nav6/Nav6YawAngularInput.h>
 
-#include <DSInput/JoystickXYInput.h>
-#include <DSInput/JoystickButtonInput.h>
-
 #include <Behaviors/BehaviorController.h>
-#include <RobotBehaviors/WinchControlBehavior.h>
 
+#include <DriverStation/JoystickButtonInput.h>
+#include <DriverStation/JoystickXYInput.h>
+#include <DriverStation/JoystickOutputIndicator.h>
+
+#include "RobotBehaviors/WinchControlBehavior.h"
 #include "RobotBehaviors/JoystickMecanumDriveBehavior.h"
 #include "RobotBehaviors/WinchHomingBehavior.h"
 
@@ -93,6 +94,14 @@ private:
 	
 	JoystickButtonInput BallastButton0;
 	JoystickButtonInput BallastButton1;
+	
+	// Indication
+	
+	JoystickOutputIndicator WinchLight0;
+	JoystickOutputIndicator WinchLight1;
+	JoystickOutputIndicator WinchLight2;
+	JoystickOutputIndicator WinchLight3;
+	JoystickOutputIndicator WinchLight4;
 	
 	// Behaviors
 	BehaviorController Behaviors;
