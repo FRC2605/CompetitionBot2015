@@ -12,10 +12,10 @@ AutonomousBehavior :: AutonomousBehavior ( MecanumDriveTrain * Drive, LinearSlid
 {
 	
 	Actions.AddAction ( & Drive1 );
-	Actions.AddAction ( & WinchPos1 );
+	/*Actions.AddAction ( & WinchPos1 );
 	Actions.AddAction ( & Turn1 );
 	Actions.AddAction ( & Drive2 );
-	Actions.AddAction ( & WinchPos2 );
+	Actions.AddAction ( & WinchPos2 );*/// Commented out till we can test each thing
 	
 };
 
