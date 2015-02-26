@@ -7,6 +7,9 @@ DriveAction :: DriveAction ( MecanumDriveTrain * Drive, double XSpeed, double YS
 	Time ( Time ),
 	Timer ()
 {
+	
+	Timer.Reset ();
+	
 };
 
 DriveAction :: ~DriveAction ()
@@ -20,11 +23,19 @@ void DriveAction :: Reset ()
 	
 };
 
+#include <iostream>
+
 void DriveAction :: Start ()
 {
 	
+	Timer.Start ();
+	
+	std :: cout << "DriveAction :: Start (), CTime: " << Timer.GetTimeS () << " of " << Time << "\n";
+	
 	if ( Timer.GetTimeS () < Time )
 	{
+		
+		std :: cout << "    * X: " << XSpeed << " Y:" << YSpeed << "\n";
 		
 		Drive -> SetTranslation ( XSpeed, YSpeed );
 		Drive -> SetRotation ( 0.0 );
@@ -32,8 +43,6 @@ void DriveAction :: Start ()
 		Drive -> PushTransform ();
 		
 	}
-	
-	Timer.Start ();
 	
 };
 
@@ -46,6 +55,8 @@ bool DriveAction :: IsComplete ()
 
 void DriveAction :: Stop ()
 {
+	
+	std :: cout << "DriveAction :: Stop ()\n";
 	
 	Drive -> SetTranslation ( 0.0, 0.0 );
 	Drive -> SetRotation ( 0.0 );

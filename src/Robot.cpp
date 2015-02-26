@@ -175,8 +175,6 @@ void Robot :: AutonomousPeriodic ()
 	
 	Behaviors.Update ();
 	
-	OrientationOffset.CalibrateZero ();
-	
 };
 
 void Robot :: DisabledPeriodic ()

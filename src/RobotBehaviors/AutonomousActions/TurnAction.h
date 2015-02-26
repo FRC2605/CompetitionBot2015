@@ -2,6 +2,7 @@
 #define SHS2605_TURNRIGHTACTION_H
 
 #include <Sensing/IAngularInput.h>
+#include <Sensing/AngularRotationTracker.h>
 #include <hardware/Drive/MecanumDriveTrain.h>
 #include <Actions/IAction.h>
 
@@ -23,10 +24,9 @@ public:
 private:
 	
 	MecanumDriveTrain * Drive;
-	IAngularInput * Angle;
 	
-	double Offset;
-	double Turned;
+	AngularRotationTracker Tracker;
+	
 	double Target;
 	
 	double RotationSpeed;
