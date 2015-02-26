@@ -79,7 +79,7 @@ Robot :: Robot ():
 	
 	WinchServo.SetProfileSlot ( 0 );
 	WinchServo.SetPIDF ( 0.7, 0.0, 0.3, 0.0 );
-	WinchServo.SetSensorInverted ( true );
+	WinchServo.SetSensorInverted ( false );
 	
 	BallastServo.SetProfileSlot ( 0 );
 	BallastServo.SetSensorInverted ( true );

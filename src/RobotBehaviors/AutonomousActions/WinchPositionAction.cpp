@@ -1,4 +1,4 @@
-#include "WinchPositionAction.cpp"
+#include "WinchPositionAction.h"
 
 WinchPositionAction :: WinchPositionAction ( LinearSlide * Winch, double Position, double Tolerance ):
 	Winch ( Winch ),
