@@ -92,7 +92,7 @@ Robot :: Robot ():
 	
 	DriveBase.SetWheelConfig ( WheelConfig );
 	DriveBase.SetInversion ( false, true, false, true );
-	DriveBase.SetSensorInversion ( true, false, false, true );
+	DriveBase.SetSensorInversion ( false, true, false, true );
 	
 	Drive.SetMotorScale ( 7000 );
 	Drive.AddMagDirFilter ( & VProfile );
@@ -110,6 +110,7 @@ Robot :: Robot ():
 	Behaviors.AddBehavior ( & YawCalibrationBehavior, Nav6CalibrationBehavior :: GetDefaultBehaviorID () );
 	
 	Behaviors.StartBehavior ( Nav6CalibrationBehavior :: GetDefaultBehaviorID () );
+	Behaviors.StartBehavior ( WinchHomingBehavior :: GetDefaultBehaviorID () );
 	
 	Nav.Start ();
 	
@@ -141,7 +142,6 @@ void Robot :: AutonomousInit ()
 	
 	Behaviors.StopBehavior ( Nav6CalibrationBehavior :: GetDefaultBehaviorID () );
 	
-	Behaviors.StartBehavior ( WinchHomingBehavior :: GetDefaultBehaviorID () );
 	Behaviors.StartBehavior ( AutonomousBehavior :: GetDefaultBehaviorID () );
 	
 };

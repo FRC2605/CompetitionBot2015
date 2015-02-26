@@ -3,7 +3,7 @@
 AutonomousBehavior :: AutonomousBehavior ( MecanumDriveTrain * Drive, LinearSlide * Winch, IAngularInput * RobotYaw ):
 	Drive ( Drive ),
 	Winch ( Winch ),
-	Drive1 ( Drive, 0, - 0.5, 0.5 ),
+	Drive1 ( Drive, 0, - 1.0, 1.0 ),
 	WinchPos1 ( Winch, 31200.0, 400.0 ),
 	Turn1 ( Drive, RobotYaw, M_PI, 0.5, 0.03 ),
 	Drive2 ( Drive, 0, 0.5, 2.0 ),

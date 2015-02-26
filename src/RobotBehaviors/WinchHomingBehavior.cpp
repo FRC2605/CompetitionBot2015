@@ -33,19 +33,19 @@ void WinchHomingBehavior :: Start ()
 	Ballast -> Enable ();
 	Winch -> Enable ();
 	
+	Ballast -> RunVelocity ( 0.0 );
+	Winch -> RunVelocity ( 0.0 );
+
 	if ( ! Homed )
 	{
 		
-		Ballast -> HomeLow ();
+		Ballast -> SetPosition ( 0.0 );
+		Ballast -> OverrideLowLimit ( 0.0 );
+		Ballast -> OverrideHighLimit ( 12500 );
 		
 		Winch -> SetPosition ( 0.0 );
-		
 		Winch -> OverrideLowLimit ( 0.0 );
 		Winch -> OverrideHighLimit ( 92000.0 );
-		
-		Winch -> TargetPosition ( 0.0 );
-		
-		std :: cout << "Homing low\n";
 		
 	}
 	
@@ -62,18 +62,9 @@ void WinchHomingBehavior :: Stop ()
 void WinchHomingBehavior :: Update ()
 {
 	
-	Winch -> Update ();
-	Ballast -> Update ();
+	Homed = true;
 	
-	if ( ! Homed )
-	{
-		
-		Homed = Winch -> TargetReached ( 400.0 ) && Ballast -> TargetReached ( 400.0 );
-		
-	}
-	
-	if ( Homed )
-		Controller -> StopBehavior ( AppliedID );
+	Controller -> StopBehavior ( AppliedID );
 	
 };
 
