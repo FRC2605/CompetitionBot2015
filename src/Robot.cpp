@@ -16,7 +16,7 @@ Robot :: Robot ():
 	Drive ( & DriveBase ),
 
 	WinchServo ( 41, CANTalon :: QuadEncoder, 2 ),
-	Winch ( & WinchServo, NULL, 10000.0, 0.0, 0.0, 100000 ),
+	Winch ( & WinchServo, NULL, 10000.0, 0.0, 0.0, 100000.0 ),
 	
 	BallastServo ( 45, CANTalon :: QuadEncoder, 13 ),
 	BallastLowLimit ( 0 ),
@@ -89,6 +89,8 @@ Robot :: Robot ():
 	WinchServo.SetProfileSlot ( 0 );
 	WinchServo.SetPIDF ( 0.7, 0.0, 0.3, 0.0 );
 	WinchServo.SetSensorInverted ( false );
+	
+	Winch.SetVRamp ( 20000.0 );
 	
 	BallastServo.SetProfileSlot ( 0 );
 	BallastServo.SetSensorInverted ( true );
