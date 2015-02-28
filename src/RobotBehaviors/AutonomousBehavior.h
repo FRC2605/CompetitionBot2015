@@ -11,6 +11,7 @@
 #include "AutonomousActions/TurnAction.h"
 #include "AutonomousActions/DriveAction.h"
 #include "AutonomousActions/WinchPositionAction.h"
+#include "AutonomousActions/BallastPositionAction.h"
 
 #define AUTOBEHAVIOR_BID "autonomous"
 
@@ -18,7 +19,7 @@ class AutonomousBehavior : public IBehavior
 {
 public:
 	
-	AutonomousBehavior ( MecanumDriveTrain * Drive, LinearSlide * Winch, IAngularInput * RobotYaw );
+	AutonomousBehavior ( MecanumDriveTrain * Drive, LinearSlide * Winch, LinearSlide * Ballast, IAngularInput * RobotYaw );
 	~AutonomousBehavior ();
 	
 	void Init ( BehaviorController * Controller, const char * AppliedID );
@@ -35,12 +36,15 @@ private:
 	
 	MecanumDriveTrain * Drive;
 	LinearSlide * Winch;
+	LinearSlide * Ballast;
 	
 	DriveAction Drive1;
 	WinchPositionAction WinchPos1;
 	TurnAction Turn1;
 	DriveAction Drive2;
 	WinchPositionAction WinchPos2;
+	BallastPositionAction BallastPos1;
+	BallastPositionAction BallastPos2;
 	
 	ActionController Actions;
 	

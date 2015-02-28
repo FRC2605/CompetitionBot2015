@@ -86,7 +86,7 @@ private:
 	JoystickButtonInput WinchUpButton;
 	JoystickButtonInput WinchDownButton;
 	
-	JoystickButtonInput FinePositioningButton;
+	JoystickButtonInput TurboButton;
 	
 	JoystickButtonInput WinchButton0;
 	JoystickButtonInput WinchButton1;

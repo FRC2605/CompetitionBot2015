@@ -1,21 +1,26 @@
 #include "AutonomousBehavior.h"
 
-AutonomousBehavior :: AutonomousBehavior ( MecanumDriveTrain * Drive, LinearSlide * Winch, IAngularInput * RobotYaw ):
+AutonomousBehavior :: AutonomousBehavior ( MecanumDriveTrain * Drive, LinearSlide * Winch, LinearSlide * Ballast, IAngularInput * RobotYaw ):
 	Drive ( Drive ),
 	Winch ( Winch ),
+	Ballast ( Ballast ),
 	Drive1 ( Drive, 0, - 0.23, 0.8 ),
 	WinchPos1 ( Winch, 31200.0, 400.0 ),
-	Turn1 ( Drive, RobotYaw, M_PI * 1.5, 0.25, 0.03 ),
-	Drive2 ( Drive, 0, 0.5, 2.0 ),
+	Turn1 ( Drive, RobotYaw, - M_PI, - 0.15, 0.01 ),
+	Drive2 ( Drive, 0, 0.5, 2.6 ),
 	WinchPos2 ( Winch, 0.0, 400.0 ),
+	BallastPos1 ( Ballast, 10000.0, 400.0 ),
+	BallastPos2 ( Ballast, 0.0, 400.0 ),
 	Actions ()
 {
 	
-	Actions.AddAction ( & Drive1 );
+	//Actions.AddAction ( & Drive1 );
 	Actions.AddAction ( & WinchPos1 );
 	Actions.AddAction ( & Turn1 );
 	Actions.AddAction ( & Drive2 );
 	Actions.AddAction ( & WinchPos2 );
+	Actions.AddAction ( & BallastPos1 );
+	Actions.AddAction ( & BallastPos2 );
 	
 };
 
@@ -36,6 +41,7 @@ void AutonomousBehavior :: Start ()
 	
 	Drive -> Enable ();
 	Winch -> Enable ();
+	Ballast -> Enable ();
 	
 	Actions.Reset ();
 	Actions.Start ();
@@ -49,6 +55,7 @@ void AutonomousBehavior :: Stop ()
 	
 	Drive -> Disable ();
 	Winch -> Disable ();
+	Ballast -> Disable ();
 	
 };
 
@@ -58,6 +65,7 @@ void AutonomousBehavior :: Update ()
 	Actions.Update ();
 	
 	Winch -> Update ();
+	Ballast -> Update ();
 	
 };
 

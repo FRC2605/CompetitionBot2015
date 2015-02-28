@@ -35,7 +35,7 @@ private:
 	IXYInput * Strafe;
 	IXInput * Rotate;
 	
-	IBooleanInput * FinePositioningButton;
+	IBooleanInput * TurboButton;
 	
 };
 

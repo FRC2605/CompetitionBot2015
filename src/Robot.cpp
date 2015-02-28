@@ -33,16 +33,25 @@ Robot :: Robot ():
 	WinchUpButton ( & RotateStick, 3 ),
 	WinchDownButton ( & RotateStick, 2 ),
 
-	FinePositioningButton ( & StrafeStick, 2 ),
+	TurboButton ( & StrafeStick, 2 ),
 	
-	WinchButton0 ( & DSButtons, 10 ),
+	/*WinchButton0 ( & DSButtons, 10 ),
 	WinchButton1 ( & DSButtons, 1 ),
 	WinchButton2 ( & DSButtons, 2 ),
 	WinchButton3 ( & DSButtons, 3 ),
-	WinchButton4 ( & DSButtons, 4 ),
+	WinchButton4 ( & DSButtons, 4 ),*/
 	
-	BallastButton0 ( & DSButtons, 8 ),
-	BallastButton1 ( & DSButtons, 9 ),
+	WinchButton0 ( & RotateStick, 6 ),
+	WinchButton1 ( & RotateStick, 7 ),
+	WinchButton2 ( & RotateStick, 8 ),
+	WinchButton3 ( & RotateStick, 9 ),
+	WinchButton4 ( & RotateStick, 10 ),
+	
+	/*BallastButton0 ( & DSButtons, 8 ),
+	BallastButton1 ( & DSButtons, 9 ),*/
+	
+	BallastButton0 ( & RotateStick, 4 ),
+	BallastButton1 ( & RotateStick, 5 ),
 	
 	WinchLight0 ( & DSButtons, 1 ),
 	WinchLight1 ( & DSButtons, 2 ),
@@ -61,10 +70,10 @@ Robot :: Robot ():
 	BallastPosition0 ( & BallastButton0, NULL, 0.0 ),
 	BallastPosition1 ( & BallastButton1, NULL, - 12000.0 ),
 	
-	DriveBehavior ( & Drive, & StrafeInput, & RotateInput, & FinePositioningButton ),
+	DriveBehavior ( & Drive, & StrafeInput, & RotateInput, & TurboButton ),
 	HomingBehavior ( & Winch, & Ballast ),
-	WinchBehavior ( & Winch, & Ballast, & WinchUpButton, & WinchDownButton, 15000.0 ),
-	AutoBehavior ( & Drive, & Winch, & Nav6YawInput ),
+	WinchBehavior ( & Winch, & Ballast, & WinchUpButton, & WinchDownButton, 17500.0 ),
+	AutoBehavior ( & Drive, & Winch, & Ballast, & Nav6YawInput ),
 	YawCalibrationBehavior ( & OrientationOffset, M_PI )
 {
 	
