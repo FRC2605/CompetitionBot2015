@@ -6,6 +6,7 @@ AutonomousBehavior :: AutonomousBehavior ( MecanumDriveTrain * Drive, LinearSlid
 	Ballast ( Ballast ),
 	Drive1 ( Drive, 0, - 0.23, 0.8 ),
 	WinchPos1 ( Winch, 31200.0, 400.0 ),
+	Wait1 ( 7.0 ),
 	Turn1 ( Drive, RobotYaw, - M_PI, - 0.15, 0.01 ),
 	Drive2 ( Drive, 0, 0.5, 2.6 ),
 	WinchPos2 ( Winch, 0.0, 400.0 ),
@@ -16,11 +17,12 @@ AutonomousBehavior :: AutonomousBehavior ( MecanumDriveTrain * Drive, LinearSlid
 	
 	//Actions.AddAction ( & Drive1 );
 	Actions.AddAction ( & WinchPos1 );
+	Actions.AddAction ( & Wait1 );
 	Actions.AddAction ( & Turn1 );
 	Actions.AddAction ( & Drive2 );
 	Actions.AddAction ( & WinchPos2 );
-	Actions.AddAction ( & BallastPos1 );
-	Actions.AddAction ( & BallastPos2 );
+	//Actions.AddAction ( & BallastPos1 );
+	//Actions.AddAction ( & BallastPos2 );
 	
 };
 

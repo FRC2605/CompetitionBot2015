@@ -12,6 +12,7 @@
 #include "AutonomousActions/DriveAction.h"
 #include "AutonomousActions/WinchPositionAction.h"
 #include "AutonomousActions/BallastPositionAction.h"
+#include "AutonomousActions/WaitAction.h"
 
 #define AUTOBEHAVIOR_BID "autonomous"
 
@@ -40,6 +41,7 @@ private:
 	
 	DriveAction Drive1;
 	WinchPositionAction WinchPos1;
+	WaitAction Wait1;
 	TurnAction Turn1;
 	DriveAction Drive2;
 	WinchPositionAction WinchPos2;
