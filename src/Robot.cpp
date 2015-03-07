@@ -70,6 +70,16 @@ Robot :: Robot ():
 	BallastPosition0 ( & BallastButton0, NULL, 0.0 ),
 	BallastPosition1 ( & BallastButton1, NULL, - 12000.0 ),
 	
+
+	/**
+	 * Winch Desiered Developments
+	 * incremental chnaged to stacking levels,
+	 * Button 11 up
+	 * Button 10 down
+	 *
+	 * turbo button for the lifting winch
+	 *
+	 */
 	DriveBehavior ( & Drive, & StrafeInput, & RotateInput, & TurboButton ),
 	HomingBehavior ( & Winch, & Ballast ),
 	WinchBehavior ( & Winch, & Ballast, & WinchUpButton, & WinchDownButton, 17500.0 ),
