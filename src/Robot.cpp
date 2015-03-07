@@ -82,8 +82,10 @@ Robot :: Robot ():
 	 * turbo button for the lifting winch
 	 *
 	 */
+	//Winch behavior
 	DriveBehavior ( & Drive, & StrafeInput, & RotateInput, & TurboButton ),
 	HomingBehavior ( & Winch, & Ballast ),
+	//															Winch speed	HERE (Orgional was 17500.00
 	WinchBehavior ( & Winch, & Ballast, & WinchUpButton, & WinchDownButton, 17500.0 ),
 	AutoBehavior ( & Drive, & Winch, & Ballast, & Nav6YawInput ),
 	YawCalibrationBehavior ( & OrientationOffset, M_PI )
@@ -102,6 +104,7 @@ Robot :: Robot ():
 	WinchServo.SetPIDF ( 0.7, 0.0, 0.3, 0.0 );
 	WinchServo.SetSensorInverted ( false );
 	
+	//Velocity Ramp for Trapazoidal Velocity profiling
 	Winch.SetVRamp ( 20000.0 );
 	
 	BallastServo.SetProfileSlot ( 0 );
