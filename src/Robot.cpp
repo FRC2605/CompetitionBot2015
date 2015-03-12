@@ -4,8 +4,9 @@
 
 Robot :: Robot ():
 	WheelConfig ( CANTalon :: kSpeed, CANTalonConfiguration :: kFeedbackType_QuadratureEncoder ),
-	DriveBase ( 40, 14, 42, 1, 44, 15, 43, 0, WheelConfig, 40.0, 120.0 ),
-
+	//DriveBase ( 40, 14, 42, 1, 44, 15, 43, 0, WheelConfig, 40.0, 120.0 ),
+	DriveBase ( 40, 14, 42, 1, 44, 15, 43, 0, CANTalon :: QuadEncoder, 40.0, 120.0 ),
+	
 	Nav6Port ( Nav6 :: GetDefaultBaudRate () ),
 	Nav6Com ( & Nav6Port ),
 	Nav ( & Nav6Com, 100 ),
@@ -35,13 +36,7 @@ Robot :: Robot ():
 
 	TurboButton ( & StrafeStick, 2 ),
 	
-	/*WinchButton0 ( & DSButtons, 10 ),
-	WinchButton1 ( & DSButtons, 1 ),
-	WinchButton2 ( & DSButtons, 2 ),
-	WinchButton3 ( & DSButtons, 3 ),
-	WinchButton4 ( & DSButtons, 4 ),*/
-	
-	WinchButton0 ( & RotateStick, 6 ),
+	WinchButton0 ( & RotateStick, 1 ),
 	WinchButton1 ( & RotateStick, 7 ),
 	WinchButton2 ( & RotateStick, 8 ),
 	WinchButton3 ( & RotateStick, 9 ),
@@ -72,7 +67,7 @@ Robot :: Robot ():
 	
 	DriveBehavior ( & Drive, & StrafeInput, & RotateInput, & TurboButton ),
 	HomingBehavior ( & Winch, & Ballast ),
-	WinchBehavior ( & Winch, & Ballast, & WinchUpButton, & WinchDownButton, 17500.0 ),
+	WinchBehavior ( & Winch, & Ballast, & WinchUpButton, & WinchDownButton, 24000.0 ),
 	AutoBehavior ( & Drive, & Winch, & Ballast, & Nav6YawInput ),
 	YawCalibrationBehavior ( & OrientationOffset, M_PI )
 {
@@ -90,13 +85,13 @@ Robot :: Robot ():
 	WinchServo.SetPIDF ( 0.7, 0.0, 0.3, 0.0 );
 	WinchServo.SetSensorInverted ( false );
 	
-	Winch.SetVRamp ( 20000.0 );
+	Winch.SetVRamp ( 70000.0 );
 	
 	BallastServo.SetProfileSlot ( 0 );
 	BallastServo.SetSensorInverted ( true );
 	BallastServo.SetPIDF ( 0.7, 0.0, 0.3, 0.0 );
 	
-	WheelConfig.SetPIDF ( 0.5, 0.0, 2.0, 0.0 );
+	/*WheelConfig.SetPIDF ( 0.5, 0.0, 2.0, 0.0 );
 	WheelConfig.SetControlSlot ( 0 );
 	WheelConfig.SetRampRates ( 25.0, 0.0 );
 	WheelConfig.SetNeutralMode ( CANTalon :: kNeutralMode_Brake );
@@ -106,6 +101,15 @@ Robot :: Robot ():
 	DriveBase.SetSensorInversion ( false, true, false, true );
 	
 	Drive.SetMotorScale ( 7000 );
+	Drive.AddMagDirFilter ( & VProfile );
+	Drive.AddMagDirFilter ( & OrientationOffset );*/
+	
+	DriveBase.SetPIDF ( 0.7, 0.0, 0.3, 0.0 );
+	DriveBase.SetProfileSlot ( 0 );
+	DriveBase.SetInversion ( false, true, false, true );
+	DriveBase.SetSensorInversion ( false, true, false, true );
+	
+	Drive.SetMotorScale ( 70000.0 );
 	Drive.AddMagDirFilter ( & VProfile );
 	Drive.AddMagDirFilter ( & OrientationOffset );
 	

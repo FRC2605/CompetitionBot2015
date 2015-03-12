@@ -6,6 +6,7 @@
 #include <Hardware/Motors/CANTalonConfiguration.h>
 #include <Hardware/Drive/CANTalonPositionServo.h>
 #include <Hardware/Drive/CANTalonQuadDriveBase.h>
+#include <Hardware/Drive/CANTalonPSVelocityQuadBase.h>
 #include <Hardware/Drive/LinearSlide.h>
 #include <Hardware/Drive/MecanumDriveTrain.h>
 #include <Hardware/Drive/Filters/MecanumVelocityProfile.h>
@@ -50,7 +51,8 @@ private:
 	
 	// Drive
 	CANTalonConfiguration WheelConfig;
-	CANTalonQuadDriveBase DriveBase;
+	//CANTalonQuadDriveBase DriveBase;
+	CANTalonPSVelocityQuadBase DriveBase;
 	
 	SerialPort Nav6Port;
 	WPICom Nav6Com;

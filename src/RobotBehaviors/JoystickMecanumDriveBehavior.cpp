@@ -55,6 +55,8 @@ void JoystickMecanumDriveBehavior :: Update ()
 	
 	Drive -> PushTransform ();
 	
+	Drive -> Update ();
+	
 };
 
 const char * JoystickMecanumDriveBehavior :: GetDefaultBehaviorID ()
