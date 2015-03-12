@@ -116,13 +116,13 @@ Robot :: Robot ():
 	Drive.SetMotorScale ( 7000 );
 	Drive.AddMagDirFilter ( & VProfile );
 	Drive.AddMagDirFilter ( & OrientationOffset );*/
-	
-	DriveBase.SetPIDF ( 0.7, 0.0, 0.3, 0.0 );
+
 	DriveBase.SetProfileSlot ( 0 );
+	DriveBase.SetPIDF ( 1.9, 0.0, 0.5, 0.0 );
 	DriveBase.SetInversion ( false, true, false, true );
 	DriveBase.SetSensorInversion ( false, true, false, true );
 	
-	Drive.SetMotorScale ( 70000.0 );
+	Drive.SetMotorScale ( 30000.0 );
 	Drive.AddMagDirFilter ( & VProfile );
 	Drive.AddMagDirFilter ( & OrientationOffset );
 	

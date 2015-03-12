@@ -68,6 +68,7 @@ void AutonomousBehavior :: Update ()
 	
 	Winch -> Update ();
 	Ballast -> Update ();
+	Drive -> Update ();
 	
 };
 
