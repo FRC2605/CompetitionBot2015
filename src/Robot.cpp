@@ -12,8 +12,8 @@ Robot :: Robot ():
 	Nav ( & Nav6Com, 100 ),
 	Nav6YawInput ( & Nav ),
 	OrientationOffset ( & Nav6YawInput ),
-
 	VProfile ( 2.0 ),
+	StrafeTVP ( 0.25 ),
 	Drive ( & DriveBase ),
 
 	WinchServo ( 41, CANTalon :: QuadEncoder, 2 ),
@@ -125,6 +125,7 @@ Robot :: Robot ():
 	Drive.SetMotorScale ( 30000.0 );
 	Drive.AddMagDirFilter ( & VProfile );
 	Drive.AddMagDirFilter ( & OrientationOffset );
+	Drive.AddXYFilter ( & StrafeTVP ),
 	
 	StrafeInput.SetDeadband ( 0.09 );
 	RotateInput.SetDeadband ( 0.09 );
