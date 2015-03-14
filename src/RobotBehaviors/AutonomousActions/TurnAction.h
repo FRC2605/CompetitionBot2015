@@ -10,7 +10,7 @@ class TurnAction : public IAction
 {
 public:
 	
-	TurnAction ( MecanumDriveTrain * Drive, IAngularInput * Angle, double Target, double RotationSpeed, double Tolerance );
+	TurnAction ( MecanumDriveTrain * Drive, IAngularInput * Angle, double Target, double RotationSpeed, double Tolerance, bool AutoStop = true );
 	~TurnAction ();
 	
 	void Reset ();
@@ -32,6 +32,8 @@ private:
 	double RotationSpeed;
 	double Tolerance;
 	
+	bool AutoStop;
+
 };
 
 #endif

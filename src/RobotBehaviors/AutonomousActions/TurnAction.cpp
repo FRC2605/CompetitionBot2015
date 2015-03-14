@@ -2,12 +2,13 @@
 
 #include <math.h>
 
-TurnAction :: TurnAction ( MecanumDriveTrain * Drive, IAngularInput * Angle, double Target, double RotationSpeed, double Tolerance ):
+TurnAction :: TurnAction ( MecanumDriveTrain * Drive, IAngularInput * Angle, double Target, double RotationSpeed, double Tolerance, bool AutoStop ):
 	Drive ( Drive ),
 	Tracker ( Angle ),
 	Target ( Target ),
 	RotationSpeed ( RotationSpeed ),
-	Tolerance ( Tolerance )
+	Tolerance ( Tolerance ),
+	AutoStop ( AutoStop )
 {	
 };
 
@@ -49,10 +50,15 @@ void TurnAction :: Stop ()
 	
 	Tracker.Update ();
 	
-	Drive -> SetRotation ( 0.0 );
-	Drive -> SetTranslation ( 0.0, 0.0 );
-	
-	Drive -> PushTransform ();
+	if ( AutoStop )
+	{
+
+		Drive -> SetRotation ( 0.0 );
+		Drive -> SetTranslation ( 0.0, 0.0 );
+
+		Drive -> PushTransform ();
+
+	}
 	
 };
 
@@ -62,3 +68,4 @@ void TurnAction :: Update ()
 	Tracker.Update ();
 	
 };
+

@@ -1,11 +1,12 @@
 #include "DriveAction.h"
 
-DriveAction :: DriveAction ( MecanumDriveTrain * Drive, double XSpeed, double YSpeed, double Time ):
+DriveAction :: DriveAction ( MecanumDriveTrain * Drive, double XSpeed, double YSpeed, double Time, bool AutoStop ):
 	Drive ( Drive ),
 	XSpeed ( XSpeed ),
 	YSpeed ( YSpeed ),
 	Time ( Time ),
-	Timer ()
+	Timer (),
+	AutoStop ( AutoStop )
 {
 	
 	Timer.Reset ();
@@ -36,7 +37,7 @@ void DriveAction :: Start ()
 	{
 		
 		std :: cout << "    * X: " << XSpeed << " Y:" << YSpeed << "\n";
-		
+
 		Drive -> SetTranslation ( XSpeed, YSpeed );
 		Drive -> SetRotation ( 0.0 );
 		
@@ -58,11 +59,16 @@ void DriveAction :: Stop ()
 	
 	std :: cout << "DriveAction :: Stop ()\n";
 	
-	Drive -> SetTranslation ( 0.0, 0.0 );
-	Drive -> SetRotation ( 0.0 );
+	if ( AutoStop )
+	{
+
+		Drive -> SetTranslation ( 0.0, 0.0 );
+		Drive -> SetRotation ( 0.0 );
+
+		Drive -> PushTransform ();
 	
-	Drive -> PushTransform ();
-	
+	}
+
 	Timer.Stop ();
 	
 };

@@ -9,7 +9,7 @@ class DriveAction : public IAction
 {
 public:
 	
-	DriveAction ( MecanumDriveTrain * Drive, double XSpeed, double YSpeed, double Time );
+	DriveAction ( MecanumDriveTrain * Drive, double XSpeed, double YSpeed, double Time, bool AutoStop = true );
 	~DriveAction ();
 	
 	void Reset ();
@@ -30,6 +30,8 @@ private:
 	
 	IntervalTimer Timer;
 	
+	bool AutoStop;
+
 };
 
 #endif

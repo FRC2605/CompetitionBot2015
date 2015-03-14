@@ -40,8 +40,5 @@ void WaitAction :: Stop ()
 	
 void WaitAction :: Update ()
 {
-	
-	
-	
 };
 

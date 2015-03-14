@@ -6,12 +6,12 @@ AutonomousBehavior :: AutonomousBehavior ( MecanumDriveTrain * Drive, LinearSlid
 	Ballast ( Ballast ),
 	Drive1 ( Drive, 0, - 0.23, 0.8 ),
 	WinchPos1 ( Winch, 31200.0, 400.0 ),
-	Wait1 ( 7.0 ),
-	Turn1 ( Drive, RobotYaw, - M_PI, - 0.15, 0.01 ),
+	Wait1 ( 5.0 ),
+	Turn1 ( Drive, RobotYaw, - M_PI, - 0.15, 0.01, false ),
 	Drive2 ( Drive, 0, 0.5, 2.6 ),
 	WinchPos2 ( Winch, 0.0, 400.0 ),
 	BallastPos1 ( Ballast, 10000.0, 400.0 ),
-	BallastPos2 ( Ballast, 0.0, 400.0 ),
+	BallastPos2 ( Bal1ast, 0.0, 400.0 ),
 	Actions ()
 {
 	
@@ -41,12 +41,12 @@ void AutonomousBehavior :: Destroy ()
 void AutonomousBehavior :: Start ()
 {
 	
+	Actions.Reset ();
+	Actions.Start ();
+
 	Drive -> Enable ();
 	Winch -> Enable ();
 	Ballast -> Enable ();
-	
-	Actions.Reset ();
-	Actions.Start ();
 	
 };
 
