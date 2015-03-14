@@ -46,7 +46,7 @@ void AutonomousBehavior :: Start ()
 	Actions.Reset ();
 	Actions.Start ();
 
-	Drive -> SetPreScale ( 1.0, 1.0 );
+	Drive -> SetPreScale ( 0.5, 0.5 );
 	Drive -> SetDriveBase ( DriveBase );
 	Drive -> SetMotorScale ( MotorSpeed );
 	

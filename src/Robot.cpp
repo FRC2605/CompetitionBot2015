@@ -63,10 +63,10 @@ Robot :: Robot ():
 	BallastPosition0 ( & BallastButton0, NULL, 0.0 ),
 	BallastPosition1 ( & BallastButton1, NULL, - 12000.0 ),
 	
-	DriveBehavior ( & Drive, & StrafeInput, & RotateInput, & TurboButton, 50000.0, 7000.0, & PositionDriveBase, & VelocityDriveBase ),
+	DriveBehavior ( & Drive, & StrafeInput, & RotateInput, & TurboButton, 30000.0, 7000.0, & PositionDriveBase, & VelocityDriveBase ),
 	HomingBehavior ( & Winch, & Ballast ),
 	WinchBehavior ( & Winch, & Ballast, & WinchUpButton, & WinchDownButton, 24000.0 ),
-	AutoBehavior ( & Drive, & Winch, & Ballast, & Nav6YawInput, 50000.0, & PositionDriveBase ),
+	AutoBehavior ( & Drive, & Winch, & Ballast, & Nav6YawInput, 30000.0, & PositionDriveBase ),
 	YawCalibrationBehavior ( & OrientationOffset, M_PI )
 {
 	

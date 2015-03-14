@@ -35,8 +35,8 @@ private:
 	IQuadRectangularDriveBase * LowSpeedDrive;
 	IQuadRectangularDriveBase * HighSpeedDrive;
 	
-	bool LowMotorSpeed;
-	bool HighMotorSpeed;
+	double LowMotorSpeed;
+	double HighMotorSpeed;
 	
 	IXYInput * Strafe;
 	IXInput * Rotate;
