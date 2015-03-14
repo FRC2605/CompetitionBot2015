@@ -1,9 +1,11 @@
 #include "AutonomousBehavior.h"
 
-AutonomousBehavior :: AutonomousBehavior ( MecanumDriveTrain * Drive, LinearSlide * Winch, LinearSlide * Ballast, IAngularInput * RobotYaw ):
+AutonomousBehavior :: AutonomousBehavior ( MecanumDriveTrain * Drive, LinearSlide * Winch, LinearSlide * Ballast, IAngularInput * RobotYaw, double MotorSpeed, IQuadRectangularDriveBase * DriveBase ):
 	Drive ( Drive ),
 	Winch ( Winch ),
 	Ballast ( Ballast ),
+	MotorSpeed ( MotorSpeed ),
+	DriveBase ( DriveBase ),
 	Drive1 ( Drive, 0, - 0.23, 0.8 ),
 	WinchPos1 ( Winch, 31200.0, 400.0 ),
 	Wait1 ( 7.0 ),
@@ -41,6 +43,10 @@ void AutonomousBehavior :: Destroy ()
 void AutonomousBehavior :: Start ()
 {
 	
+	Drive -> SetPreScale ( 1.0, 1.0 );
+	Drive -> SetDriveBase ( DriveBase );
+	Drive -> SetMotorScale ( MotorSpeed );
+	
 	Drive -> Enable ();
 	Winch -> Enable ();
 	Ballast -> Enable ();
@@ -68,6 +74,7 @@ void AutonomousBehavior :: Update ()
 	
 	Winch -> Update ();
 	Ballast -> Update ();
+	Drive -> Update ();
 	
 };
 

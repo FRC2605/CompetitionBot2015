@@ -4,8 +4,8 @@
 
 Robot :: Robot ():
 	WheelConfig ( CANTalon :: kSpeed, CANTalonConfiguration :: kFeedbackType_QuadratureEncoder ),
-	//DriveBase ( 40, 14, 42, 1, 44, 15, 43, 0, WheelConfig, 40.0, 120.0 ),
-	DriveBase ( 40, 14, 42, 1, 44, 15, 43, 0, CANTalon :: QuadEncoder, 40.0, 120.0 ),
+	VelocityDriveBase ( 40, 14, 42, 1, 44, 15, 43, 0, WheelConfig, 40.0, 120.0 ),
+	PositionDriveBase ( 40, 14, 42, 1, 44, 15, 43, 0, CANTalon :: QuadEncoder, 40.0, 120.0 ),
 	
 	Nav6Port ( Nav6 :: GetDefaultBaudRate () ),
 	Nav6Com ( & Nav6Port ),
@@ -14,7 +14,7 @@ Robot :: Robot ():
 	OrientationOffset ( & Nav6YawInput ),
 
 	VProfile ( 2.0 ),
-	Drive ( & DriveBase ),
+	Drive ( & VelocityDriveBase ),
 
 	WinchServo ( 41, CANTalon :: QuadEncoder, 2 ),
 	Winch ( & WinchServo, NULL, 10000.0, 0.0, 0.0, 100000.0 ),
@@ -42,9 +42,6 @@ Robot :: Robot ():
 	WinchButton3 ( & RotateStick, 9 ),
 	WinchButton4 ( & RotateStick, 10 ),
 	
-	/*BallastButton0 ( & DSButtons, 8 ),
-	BallastButton1 ( & DSButtons, 9 ),*/
-	
 	BallastButton0 ( & RotateStick, 4 ),
 	BallastButton1 ( & RotateStick, 5 ),
 	
@@ -65,23 +62,10 @@ Robot :: Robot ():
 	BallastPosition0 ( & BallastButton0, NULL, 0.0 ),
 	BallastPosition1 ( & BallastButton1, NULL, - 12000.0 ),
 	
-//TODO:
-	/**
-	*:
-	 *
-	 * Winch Desiered Developments
-	 * incremental chnaged to stacking levels,
-	 * Button 11 up
-	 * Button 10 down
-	 *
-	 * turbo button for the lifting winch
-	 *
-	 */
-	//Winch behavior
-	DriveBehavior ( & Drive, & StrafeInput, & RotateInput, & TurboButton ),
+	DriveBehavior ( & Drive, & StrafeInput, & RotateInput, & TurboButton, 50000.0, 7000.0, & PositionDriveBase, & VelocityDriveBase ),
 	HomingBehavior ( & Winch, & Ballast ),
 	WinchBehavior ( & Winch, & Ballast, & WinchUpButton, & WinchDownButton, 24000.0 ),
-	AutoBehavior ( & Drive, & Winch, & Ballast, & Nav6YawInput ),
+	AutoBehavior ( & Drive, & Winch, & Ballast, & Nav6YawInput, 50000.0, & PositionDriveBase ),
 	YawCalibrationBehavior ( & OrientationOffset, M_PI )
 {
 	
@@ -104,27 +88,22 @@ Robot :: Robot ():
 	BallastServo.SetSensorInverted ( true );
 	BallastServo.SetPIDF ( 0.7, 0.0, 0.3, 0.0 );
 	
-	/*WheelConfig.SetPIDF ( 0.5, 0.0, 2.0, 0.0 );
+	WheelConfig.SetPIDF ( 0.5, 0.0, 2.0, 0.0 );
 	WheelConfig.SetControlSlot ( 0 );
 	WheelConfig.SetRampRates ( 25.0, 0.0 );
 	WheelConfig.SetNeutralMode ( CANTalon :: kNeutralMode_Brake );
 	
-	DriveBase.SetWheelConfig ( WheelConfig );
-	DriveBase.SetInversion ( false, true, false, true );
-	DriveBase.SetSensorInversion ( false, true, false, true );
+	VelocityDriveBase.SetWheelConfig ( WheelConfig );
+	VelocityDriveBase.SetInversion ( false, true, false, true );
+	VelocityDriveBase.SetSensorInversion ( false, true, false, true );
 	
-	Drive.SetMotorScale ( 7000 );
-	Drive.AddMagDirFilter ( & VProfile );
-	Drive.AddMagDirFilter ( & OrientationOffset );*/
-	
-	DriveBase.SetPIDF ( 0.7, 0.0, 0.3, 0.0 );
-	DriveBase.SetProfileSlot ( 0 );
-	DriveBase.SetInversion ( false, true, false, true );
-	DriveBase.SetSensorInversion ( false, true, false, true );
-	
-	Drive.SetMotorScale ( 70000.0 );
 	Drive.AddMagDirFilter ( & VProfile );
 	Drive.AddMagDirFilter ( & OrientationOffset );
+	
+	PositionDriveBase.SetPIDF ( 0.7, 0.0, 0.3, 0.0 );
+	PositionDriveBase.SetProfileSlot ( 0 );
+	PositionDriveBase.SetInversion ( false, true, false, true );
+	PositionDriveBase.SetSensorInversion ( false, true, false, true );
 	
 	StrafeInput.SetDeadband ( 0.09 );
 	RotateInput.SetDeadband ( 0.09 );

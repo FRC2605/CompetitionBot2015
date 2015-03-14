@@ -51,8 +51,8 @@ private:
 	
 	// Drive
 	CANTalonConfiguration WheelConfig;
-	//CANTalonQuadDriveBase DriveBase;
-	CANTalonPSVelocityQuadBase DriveBase;
+	CANTalonQuadDriveBase VelocityDriveBase;
+	CANTalonPSVelocityQuadBase PositionDriveBase;
 	
 	SerialPort Nav6Port;
 	WPICom Nav6Com;

@@ -5,6 +5,7 @@
 #include <Actions/ActionController.h>
 
 #include <Hardware/Drive/MecanumDriveTrain.h>
+#include <Hardware/Drive/IQuadRectangularDriveBase.h>
 
 #include <Sensing/IAngularInput.h>
 
@@ -20,7 +21,7 @@ class AutonomousBehavior : public IBehavior
 {
 public:
 	
-	AutonomousBehavior ( MecanumDriveTrain * Drive, LinearSlide * Winch, LinearSlide * Ballast, IAngularInput * RobotYaw );
+	AutonomousBehavior ( MecanumDriveTrain * Drive, LinearSlide * Winch, LinearSlide * Ballast, IAngularInput * RobotYaw, double MotorSpeed, IQuadRectangularDriveBase * DriveBase );
 	~AutonomousBehavior ();
 	
 	void Init ( BehaviorController * Controller, const char * AppliedID );
@@ -38,6 +39,9 @@ private:
 	MecanumDriveTrain * Drive;
 	LinearSlide * Winch;
 	LinearSlide * Ballast;
+	
+	double MotorSpeed;
+	IQuadRectangularDriveBase * DriveBase;
 	
 	DriveAction Drive1;
 	WinchPositionAction WinchPos1;
