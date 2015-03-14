@@ -12,8 +12,9 @@ Robot :: Robot ():
 	Nav ( & Nav6Com, 100 ),
 	Nav6YawInput ( & Nav ),
 	OrientationOffset ( & Nav6YawInput ),
-
 	VProfile ( 2.0 ),
+
+	StrafeTVP ( 0.25 ),
 	Drive ( & VelocityDriveBase ),
 
 	WinchServo ( 41, CANTalon :: QuadEncoder, 2 ),
@@ -99,6 +100,7 @@ Robot :: Robot ():
 	
 	Drive.AddMagDirFilter ( & VProfile );
 	Drive.AddMagDirFilter ( & OrientationOffset );
+	Drive.AddXYFilter ( & StrafeTVP ),
 	
 	PositionDriveBase.SetPIDF ( 0.7, 0.0, 0.3, 0.0 );
 	PositionDriveBase.SetProfileSlot ( 0 );
