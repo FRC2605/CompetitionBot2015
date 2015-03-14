@@ -15,7 +15,7 @@ class JoystickMecanumDriveBehavior : public IBehavior
 {
 public:
 	
-	JoystickMecanumDriveBehavior ( MecanumDriveTrain * DriveTrain, IXYInput * StrafeInput, IXInput * RotationInput, IBooleanInput * FinePositioningButton );
+	JoystickMecanumDriveBehavior ( MecanumDriveTrain * DriveTrain, IXYInput * StrafeInput, IXInput * RotationInput, IBooleanInput * TurboBotton, double LowMotorSpeed, double HighMotorSpeed, IQuadRectangularDriveBase * LowSpeedDrive, IQuadRectangularDriveBase * HighSpeedDrive = NULL );
 	~JoystickMecanumDriveBehavior ();
 	
 	void Init ( BehaviorController * Controller, const char * AppliedID );
@@ -32,10 +32,18 @@ private:
 	
 	MecanumDriveTrain * Drive;
 	
+	IQuadRectangularDriveBase * LowSpeedDrive;
+	IQuadRectangularDriveBase * HighSpeedDrive;
+	
+	bool LowMotorSpeed;
+	bool HighMotorSpeed;
+	
 	IXYInput * Strafe;
 	IXInput * Rotate;
 	
 	IBooleanInput * TurboButton;
+	
+	bool LastTurboState;
 	
 };
 

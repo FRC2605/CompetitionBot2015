@@ -1,11 +1,20 @@
 #include "JoystickMecanumDriveBehavior.h"
 
-JoystickMecanumDriveBehavior :: JoystickMecanumDriveBehavior ( MecanumDriveTrain * DriveTrain, IXYInput * StrafeInput, IXInput * RotationInput, IBooleanInput * TurboButton ):
+JoystickMecanumDriveBehavior :: JoystickMecanumDriveBehavior ( MecanumDriveTrain * DriveTrain, IXYInput * StrafeInput, IXInput * RotationInput, IBooleanInput * TurboButton, double LowMotorSpeed, double HighMotorSpeed, IQuadRectangularDriveBase * LowSpeedDrive, IQuadRectangularDriveBase * HighSpeedDrive ):
 	Drive ( DriveTrain ),
+	LowSpeedDrive ( LowSpeedDrive ),
+	HighSpeedDrive ( HighSpeedDrive ),
+	LowMotorSpeed ( LowMotorSpeed ),
+	HighMotorSpeed ( HighMotorSpeed ),
 	Strafe ( StrafeInput ),
 	Rotate ( RotationInput ),
-	TurboButton ( TurboButton )
+	TurboButton ( TurboButton ),
+	LastTurboState ( false )
 {
+	
+	if ( HighSpeedDrive == NULL )
+		HighSpeedDrive = LowSpeedDrive;
+	
 };
 
 JoystickMecanumDriveBehavior :: ~JoystickMecanumDriveBehavior ()
@@ -22,6 +31,11 @@ void JoystickMecanumDriveBehavior :: Destroy ()
 
 void JoystickMecanumDriveBehavior :: Start ()
 {
+	
+	LastTurboState = false;
+	Drive -> SetPreScale ( 0.5, 0.5 );
+	Drive -> SetDriveBase ( LowSpeedDrive );
+	Drive -> SetMotorScale ( LowMotorSpeed );
 	
 	Drive -> Enable ();
 	
@@ -46,12 +60,29 @@ void JoystickMecanumDriveBehavior :: Update ()
 	
 	double R = Rotate -> GetX () / RScale;
 	
-	double FineScale = TurboButton -> GetBoolean () ? 1.0 : 0.5;
+	if ( LastTurboState && ( ! TurboButton -> GetBoolean () ) )
+	{
+		
+		Drive -> SetPreScale ( 0.5, 0.5 );
+		Drive -> SetDriveBase ( LowSpeedDrive );
+		Drive -> SetMotorScale ( LowMotorSpeed );
+		
+		LastTurboState = false;
+		
+	}
+	else if ( ( ! LastTurboState ) && TurboButton -> GetBoolean () )
+	{
+		
+		Drive -> SetPreScale ( 1.0, 1.0 );
+		Drive -> SetDriveBase ( HighSpeedDrive );
+		Drive -> SetMotorScale ( HighMotorSpeed );
+		
+		LastTurboState = true;
+		
+	}
 	
 	Drive -> SetTranslation ( X, Y );
 	Drive -> SetRotation ( R / 1.5 );
-	
-	Drive -> SetPreScale ( FineScale, FineScale );
 	
 	Drive -> PushTransform ();
 	
