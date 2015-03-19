@@ -5,7 +5,7 @@
 Robot :: Robot ():
 	WheelConfig ( CANTalon :: kSpeed, CANTalonConfiguration :: kFeedbackType_QuadratureEncoder ),
 	VelocityDriveBase ( 40, 14, 42, 1, 44, 15, 43, 0, WheelConfig, 40.0, 120.0 ),
-	PositionDriveBase ( 40, 14, 42, 1, 44, 15, 43, 0, CANTalon :: QuadEncoder, 40.0, 120.0 ),
+//	PositionDriveBase ( 40, 14, 42, 1, 44, 15, 43, 0, CANTalon :: QuadEncoder, 40.0, 120.0 ),
 	
 	Nav6Port ( Nav6 :: GetDefaultBaudRate () ),
 	Nav6Com ( & Nav6Port ),
@@ -63,10 +63,10 @@ Robot :: Robot ():
 	BallastPosition0 ( & BallastButton0, NULL, 0.0 ),
 	BallastPosition1 ( & BallastButton1, NULL, - 12000.0 ),
 	
-	DriveBehavior ( & Drive, & StrafeInput, & RotateInput, & TurboButton, 30000.0, 7000.0, & PositionDriveBase, & VelocityDriveBase ),
+	DriveBehavior ( & Drive, & StrafeInput, & RotateInput, & TurboButton, 7000.0, 7000.0, & VelocityDriveBase, & VelocityDriveBase ),
 	HomingBehavior ( & Winch, & Ballast ),
 	WinchBehavior ( & Winch, & Ballast, & WinchUpButton, & WinchDownButton, 24000.0 ),
-	AutoBehavior ( & Drive, & Winch, & Ballast, & Nav6YawInput, 30000.0, & PositionDriveBase ),
+	AutoBehavior ( & Drive, & Winch, & Ballast, & Nav6YawInput, 7000.0, & VelocityDriveBase ),
 	YawCalibrationBehavior ( & OrientationOffset, M_PI )
 {
 	
@@ -98,11 +98,11 @@ Robot :: Robot ():
 	VelocityDriveBase.SetInversion ( false, true, false, true );
 	VelocityDriveBase.SetSensorInversion ( false, true, false, true );
 	
-	PositionDriveBase.SetPIDF ( 0.7, 0.0, 0.3, 0.0 );
-	PositionDriveBase.SetProfileSlot ( 0 );
-	PositionDriveBase.SetInversion ( false, true, false, true );
-	PositionDriveBase.SetSensorInversion ( false, true, false, true );
-	
+//	PositionDriveBase.SetPIDF ( 0.7, 0.0, 0.3, 0.0 );
+//	PositionDriveBase.SetProfileSlot ( 0 );
+//	PositionDriveBase.SetInversion ( false, true, false, true );
+//	PositionDriveBase.SetSensorInversion ( false, true, false, true );
+
 	Drive.SetMotorScale ( 7000.0 );
 	Drive.AddMagDirFilter ( & VProfile );
 	Drive.AddMagDirFilter ( & OrientationOffset );
