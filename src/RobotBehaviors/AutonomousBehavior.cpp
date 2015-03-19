@@ -6,9 +6,9 @@ AutonomousBehavior :: AutonomousBehavior ( MecanumDriveTrain * Drive, LinearSlid
 	Ballast ( Ballast ),
 	MotorSpeed ( MotorSpeed ),
 	DriveBase ( DriveBase ),
-	Drive1 ( Drive, 0, - 0.23, 0.8 ),
+	Drive1 ( Drive, 0, - 0.53, 0.8 ),
 	WinchPos1 ( Winch, 31200.0, 400.0 ),
-	Wait1 ( 5.0 ),
+	Wait1 ( 0.0 ),
 	Turn1 ( Drive, RobotYaw, - M_PI, - 0.15, 0.01, false ),
 	Drive2 ( Drive, 0, 0.5, 2.6 ),
 	WinchPos2 ( Winch, 0.0, 400.0 ),
@@ -46,7 +46,7 @@ void AutonomousBehavior :: Start ()
 	Actions.Reset ();
 	Actions.Start ();
 
-	Drive -> SetPreScale ( 0.5, 0.5 );
+	Drive -> SetPreScale ( 1.0, 1.0 );
 	Drive -> SetDriveBase ( DriveBase );
 	Drive -> SetMotorScale ( MotorSpeed );
 	
