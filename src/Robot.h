@@ -12,6 +12,7 @@
 #include <Hardware/Drive/Filters/MecanumVelocityProfile.h>
 #include <Hardware/Drive/Filters/MecanumMagDirOrientationOffset.h>
 #include <Hardware/Drive/Filters/MecanumXYTVPFilter.h>
+#include <Hardware/Drive/Filters/RotationTVPFilter.h>
 
 #include <COM/WPICom.h>
 
@@ -63,6 +64,7 @@ private:
 	MecanumMagDirOrientationOffset OrientationOffset;
 	MecanumVelocityProfile VProfile;
 	MecanumXYTVPFilter StrafeTVP;
+	RotationTVPFilter RotationVRamp;
 	
 	MecanumDriveTrain Drive;
 	
