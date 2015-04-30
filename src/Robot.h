@@ -30,7 +30,6 @@
 #include "RobotBehaviors/WinchHomingBehavior.h"
 #include "RobotBehaviors/AutonomousBehavior.h"
 #include "RobotBehaviors/Nav6CalibrationBehavior.h"
-#include "RobotBehaviors/ContainerArmBehavior.h"
 
 class Robot : public IterativeRobot
 {
@@ -80,10 +79,6 @@ private:
 	
 	LinearSlide Ballast;
 	
-	// ContainerArm
-
-	Talon ContainerArm;
-
 	// Input
 	Joystick StrafeStick;
 	Joystick RotateStick;
@@ -106,9 +101,6 @@ private:
 	JoystickButtonInput BallastButton0;
 	JoystickButtonInput BallastButton1;
 	
-	JoystickButtonInput ArmOutButton;
-	JoystickButtonInput ArmInButton;
-
 	// Indication
 	
 	JoystickOutputIndicator WinchLight0;
@@ -134,7 +126,6 @@ private:
 	WinchControlBehavior WinchBehavior;
 	AutonomousBehavior AutoBehavior;
 	Nav6CalibrationBehavior YawCalibrationBehavior;
-	ContainerArmBehavior ArmBehavior;
 	
 };
 

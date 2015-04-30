@@ -25,8 +25,6 @@ Robot :: Robot ():
 	BallastLimits ( & BallastLowLimit, NULL ),
 	Ballast ( & BallastServo, & BallastLimits, - 7000.0, 0.0 ),
 
-	ContainerArm ( 0 ),
-
 	StrafeStick ( 0 ),
 	RotateStick ( 1 ),
 	DSButtons ( 5 ),
@@ -48,9 +46,6 @@ Robot :: Robot ():
 	BallastButton0 ( & RotateStick, 4 ),
 	BallastButton1 ( & RotateStick, 5 ),
 	
-	ArmOutButton ( & StrafeStick, 10 ),
-	ArmInButton ( & StrafeStick, 11 ),
-
 	WinchLight0 ( & DSButtons, 1 ),
 	WinchLight1 ( & DSButtons, 2 ),
 	WinchLight2 ( & DSButtons, 3 ),
@@ -72,8 +67,7 @@ Robot :: Robot ():
 	HomingBehavior ( & Winch, & Ballast ),
 	WinchBehavior ( & Winch, & Ballast, & WinchUpButton, & WinchDownButton, 24000.0 ),
 	AutoBehavior ( & Drive, & Winch, & Ballast, & Nav6YawInput, 30000.0, & PositionDriveBase ),
-	YawCalibrationBehavior ( & OrientationOffset, M_PI ),
-	ArmBehavior ( & ContainerArm, & ArmInButton, & ArmOutButton, 0.3, 0.3 )
+	YawCalibrationBehavior ( & OrientationOffset, M_PI )
 {
 	
 	WinchBehavior.AddWinchPositionTargetButton ( & WinchPosition0 );
